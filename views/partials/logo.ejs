@@ -1,0 +1,31 @@
+<%
+/*
+  Umoya logo - inline SVG wordmark + breath-spiral mark.
+  Usage: include('partials/logo', { variant: 'gold' | 'reversed' | 'mono', showTag: true })
+    gold     - gold mark, cream wordmark (for dark backgrounds; default)
+    reversed - charcoal mark + wordmark (for cream backgrounds)
+    mono     - inherits currentColor for both
+*/
+var v = typeof variant !== 'undefined' ? variant : 'gold';
+var palettes = {
+  gold: { mark: '#B89768', text: '#F3EDE4' },
+  reversed: { mark: '#1A1714', text: '#1A1714' },
+  mono: { mark: 'currentColor', text: 'currentColor' },
+};
+var c = palettes[v] || palettes.gold;
+var tag = typeof showTag !== 'undefined' && showTag;
+%>
+<svg class="logo logo--<%= v %>" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Umoya Wellness Spa">
+  <!-- Breath spiral - a single open line curling inward, evoking air/breath -->
+  <path class="logo-mark-path"
+    d="M54 30 C54 17 44 8 32 8 C19 8 9 18 9 31 C9 44 19 54 32 54 C42 54 49 47 49 38 C49 30 43 24 35 24 C28 24 23 29 23 36"
+    fill="none" stroke="<%= c.mark %>" stroke-width="2.5" stroke-linecap="round" />
+  <g class="logo-wordmark">
+    <text x="66" y="<%= tag ? 38 : 42 %>" font-family="'Playfair Display', 'Iowan Old Style', Georgia, serif"
+      font-size="32" font-weight="500" letter-spacing="1" fill="<%= c.text %>">umoya</text>
+    <% if (tag) { %>
+      <text x="68" y="54" font-family="'Inter', sans-serif" font-size="8.5" font-weight="500"
+        letter-spacing="4.5" fill="<%= c.mark %>">WELLNESS SPA</text>
+    <% } %>
+  </g>
+</svg>

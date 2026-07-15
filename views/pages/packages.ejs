@@ -1,0 +1,50 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real spa photography -->
+    <img src="/assets/images/packages/packages-hero.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade">Packages</span>
+      <h1 class="hero__title" data-split-text="immediate">Wellness, <em>Bundled Beautifully</em></h1>
+      <p class="hero__subhead">Curated treatment series designed to work together, because lasting results are built over time, not in a single visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACKAGE CARDS ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="package-grid" data-reveal-group>
+      <% packages.forEach(function(p) { %>
+        <div class="package-card">
+          <% if (p.badge) { %><span class="package-card__badge"><%= p.badge %></span><% } %>
+          <h2 class="package-card__name"><%= p.name %></h2>
+          <p class="package-card__tagline"><%= p.tagline %></p>
+          <p class="package-card__desc"><%= p.description %></p>
+          <ul class="package-card__list">
+            <% p.includes.forEach(function(item) { %>
+              <li><%= item %></li>
+            <% }) %>
+          </ul>
+          <div class="package-card__cta">
+            <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--magnetic form-submit" data-cursor="book">Book to Inquire</a>
+            <p class="package-card__pricing-note">Book to inquire about pricing</p>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOM PLAN STRIP ============ -->
+<section class="section section--dark" style="padding-top:0;">
+  <div class="container cta-strip" data-reveal>
+    <div>
+      <span class="eyebrow">Something More Personal?</span>
+      <h3 class="heading-sm">Every package can be tailored, or built from scratch, at your consultation.</h3>
+    </div>
+    <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
+  </div>
+</section>

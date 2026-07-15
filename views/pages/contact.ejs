@@ -1,0 +1,93 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real storefront/interior photography -->
+    <img src="/assets/images/misc/contact-hero.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade">Contact</span>
+      <h1 class="hero__title" data-split-text="immediate">Come <em>Exhale</em></h1>
+      <p class="hero__subhead">Questions, directions, or a treatment you're curious about? We're easy to reach and happy to help.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT DETAILS + FORM ============ -->
+<section class="section section--dark">
+  <div class="container grid-2col">
+    <div data-reveal>
+      <span class="eyebrow">Visit Us</span>
+      <h2 class="heading-md">Umoya Wellness Spa</h2>
+
+      <ul style="display:flex; flex-direction:column; gap:1.1rem; margin-top:1.8rem;">
+        <li>
+          <p class="info-tile__label">Address</p>
+          <p><%= site.contact.address %></p>
+        </li>
+        <li>
+          <p class="info-tile__label">Phone</p>
+          <p><a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a></p>
+        </li>
+        <li>
+          <p class="info-tile__label">Email</p>
+          <p><a href="mailto:<%= site.contact.email %>" class="link-underline"><%= site.contact.email %></a></p>
+        </li>
+        <li>
+          <p class="info-tile__label">Instagram</p>
+          <p><a href="<%= site.social.instagram %>" class="link-underline" target="_blank" rel="noopener noreferrer"><%= site.social.instagramHandle %></a></p>
+        </li>
+        <li>
+          <p class="info-tile__label">Hours</p>
+          <div style="max-width:20rem;">
+            <% site.contact.hours.forEach(function(h) { %>
+              <div style="display:flex; justify-content:space-between; gap:1rem;"><span><%= h.days %></span><span class="text-muted"><%= h.time %></span></div>
+            <% }) %>
+          </div>
+        </li>
+      </ul>
+
+      <p style="margin-top:2rem;">
+        <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
+      </p>
+    </div>
+
+    <div class="contact-form-panel" data-reveal>
+      <h2>Send Us a Message</h2>
+      <p class="text-muted">We typically respond within one business day.</p>
+      <form class="js-ajax-form" action="/contact" method="POST" novalidate>
+        <div class="form-field">
+          <label for="cf-name">Name *</label>
+          <input id="cf-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email *</label>
+          <input id="cf-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="cf-phone">Phone</label>
+          <input id="cf-phone" name="phone" type="tel" autocomplete="tel" />
+        </div>
+        <div class="form-field">
+          <label for="cf-message">How can we help?</label>
+          <textarea id="cf-message" name="message"></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary form-submit">Send Message</button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section class="section section--dark" style="padding-top:0;">
+  <div class="container" data-reveal>
+    <div style="border-radius: var(--radius-md); overflow:hidden; border:1px solid var(--color-border-dark);">
+      <iframe
+        src="<%= site.contact.mapEmbedSrc %>"
+        width="100%" height="420" style="border:0; display:block; filter: grayscale(0.4) contrast(0.9);"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Map to Umoya Wellness Spa, 2253 S State St Ste #7, South Salt Lake, UT"></iframe>
+    </div>
+  </div>
+</section>

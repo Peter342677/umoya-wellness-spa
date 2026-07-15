@@ -1,0 +1,81 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real spa photography -->
+    <img src="/assets/images/misc/learn-hero.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade">Learn More</span>
+      <h1 class="hero__title" data-split-text="immediate">Understand Your <em>Options</em></h1>
+      <p class="hero__subhead">Informed clients make better decisions. Start here to understand our treatments, our philosophy, and what to expect.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TREATMENT EDUCATION ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">The Treatments</span>
+      <h2 class="heading-lg">A Plain-English Guide</h2>
+    </div>
+    <div class="card-grid" data-reveal-group>
+      <% services.forEach(function(s) { %>
+        <a href="/services/<%= s.slug %>" class="text-card" data-cursor="view">
+          <h3 class="text-card__title"><%= s.name %></h3>
+          <p class="text-card__text"><%= s.pitch %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section class="section section--light">
+  <div class="container grid-2col">
+    <div data-reveal>
+      <span class="eyebrow">Why RN-Led Matters</span>
+      <h2 class="heading-md">The difference between a <em>med spa</em> and a spa with machines</h2>
+      <p class="text-muted" style="margin-top:1.4rem; max-width:46ch;">Anyone can buy equipment. What separates a genuine medical wellness practice is the judgment behind it: knowing who a treatment is right for, who it isn't, and how to build protocols that respect your health history.</p>
+      <p class="text-muted" style="margin-top:1rem; max-width:46ch;">At Umoya, that judgment comes from Cheryl Johnson, RN-BSN-FAACM, a registered nurse with advanced training in comprehensive aesthetic medicine. It's why every plan starts with a consultation, and why we'll always tell you the truth about what a treatment can and cannot do.</p>
+      <a href="/about" class="btn btn--outline btn--magnetic" style="margin-top:2rem;" data-cursor="view">Our Story</a>
+    </div>
+    <div class="img-reveal mask-reveal" data-reveal data-parallax style="aspect-ratio: 4 / 5; border-radius: var(--radius-md);">
+      <!-- PLACEHOLDER: swap for real consultation photography -->
+      <img src="/assets/images/misc/consult.jpg" alt="A consultation at Umoya Wellness Spa" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow">Common Questions</span>
+      <h2 class="heading-lg">Before You <em>Book</em></h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <% faq.forEach(function(item) { %>
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false">
+            <span><%= item.q %></span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__panel">
+            <div class="faq-item__panel-inner"><%= item.a %></div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-band cta-band--final">
+  <div class="container cta-band__content" data-reveal>
+    <span class="eyebrow">Still Curious?</span>
+    <h2 class="heading-lg cta-band__title">The best answers come from a <em>conversation.</em></h2>
+    <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
+  </div>
+</section>

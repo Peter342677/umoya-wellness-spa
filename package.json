@@ -1,0 +1,24 @@
+{
+  "name": "umoya-wellness-spa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Umoya Wellness Spa — RN-led med spa & body contouring in South Salt Lake, Utah.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.14"
+  }
+}

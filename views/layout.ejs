@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : site.brand.name %></title>
+  <meta name="description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : '' %>" />
+
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : site.brand.name %>" />
+  <meta property="og:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : '' %>" />
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/assets/images/hero/hero-bg.jpg' %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="<%= canonicalUrl %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/logo/favicon.svg" />
+  <link rel="canonical" href="<%= canonicalUrl %>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/components/header.css" />
+  <link rel="stylesheet" href="/css/components/footer.css" />
+  <link rel="stylesheet" href="/css/components/preloader.css" />
+  <link rel="stylesheet" href="/css/components/cursor.css" />
+  <link rel="stylesheet" href="/css/components/hero.css" />
+  <link rel="stylesheet" href="/css/components/cards.css" />
+  <link rel="stylesheet" href="/css/components/cta.css" />
+  <link rel="stylesheet" href="/css/components/faq.css" />
+  <link rel="stylesheet" href="/css/components/testimonials.css" />
+  <link rel="stylesheet" href="/css/components/forms.css" />
+  <link rel="stylesheet" href="/css/components/packages.css" />
+  <%- typeof extraStyles !== 'undefined' ? extraStyles : '' %>
+</head>
+<body class="has-custom-cursor">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+  <canvas id="cursor-canvas" aria-hidden="true"></canvas>
+  <div id="cursor-label" class="cursor-label" aria-hidden="true"></div>
+
+  <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar"></div></div>
+
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <div class="preloader__logo"><%- include('partials/logo', { variant: 'gold', showTag: true }) %></div>
+  </div>
+
+  <div id="page-transition" class="page-transition" aria-hidden="true"></div>
+
+  <%- include('partials/header') %>
+
+  <main id="main-content">
+    <%- body %>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="https://unpkg.com/lenis@1.1.16/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="/js/smoke.js" defer></script>
+  <script src="/js/cursor.js" defer></script>
+  <script src="/js/smooth-scroll.js" defer></script>
+  <script src="/js/page-transitions.js" defer></script>
+  <script src="/js/preloader.js" defer></script>
+  <script src="/js/reveal.js" defer></script>
+  <script src="/js/magnetic.js" defer></script>
+  <script src="/js/parallax.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/faq-accordion.js" defer></script>
+  <script src="/js/testimonial-carousel.js" defer></script>
+  <script src="/js/tilt.js" defer></script>
+  <script src="/js/forms.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <%- typeof extraScripts !== 'undefined' ? extraScripts : '' %>
+</body>
+</html>

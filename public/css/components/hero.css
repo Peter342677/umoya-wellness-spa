@@ -1,0 +1,109 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 8rem;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,151,104,0.09), transparent 60%), var(--charcoal-950);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.38; }
+
+/* Hero background video sits on top of the fallback image, same treatment. */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
+}
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26,23,20,0.45), var(--charcoal-950) 94%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 54rem;
+  padding-block: var(--space-lg);
+}
+.hero__content--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.hero__content--center .hero__ctas { justify-content: center; }
+.hero__content--center .hero__subhead { margin-inline: auto; }
+
+/* No display override - a plain .eyebrow stays inline-block, a .badge keeps
+   its inline-flex pill shape; both center via the parent's text-align. */
+.hero__eyebrow { margin-bottom: 1.4rem; }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.6rem;
+}
+.hero__title em {
+  font-weight: 500;
+  color: var(--gold-300);
+}
+
+.hero__subhead {
+  max-width: 46ch;
+  font-size: 1.08rem;
+  color: var(--text-on-dark-muted);
+  margin-bottom: 2.4rem;
+}
+
+.hero__ctas { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.68rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-on-dark-muted);
+}
+.hero__scroll-hint::after {
+  content: "";
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--gold-500), transparent);
+  animation: scroll-hint-pulse 2.4s var(--ease-in-out) infinite;
+}
+@keyframes scroll-hint-pulse {
+  0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Page hero variant - shorter, for inner pages */
+.hero--page { min-height: 62vh; }
+
+@media (max-width: 560px) {
+  .hero { padding-top: 7rem; }
+  .hero__scroll-hint { display: none; }
+}

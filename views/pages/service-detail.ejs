@@ -1,0 +1,98 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real treatment photography -->
+    <img src="<%= service.heroImage %>" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade"><%= service.category %></span>
+      <h1 class="hero__title" data-split-text="immediate" style="font-size: var(--fs-h2);"><%= service.name %></h1>
+      <p class="hero__subhead"><%= service.pitch %></p>
+      <div class="hero__ctas">
+        <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Your Session</a>
+        <a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INCLUDED ============ -->
+<section class="section section--light">
+  <div class="container grid-2col">
+    <div data-reveal>
+      <span class="eyebrow">What to Expect</span>
+      <h2 class="heading-md">Your <%= service.shortName.toLowerCase() %> experience, <em>step by step</em></h2>
+      <ul style="margin-top:1.6rem; display:flex; flex-direction:column; gap:1rem;">
+        <% service.included.forEach(function(item) { %>
+          <li style="padding-left:1.6rem; position:relative;">
+            <span style="position:absolute; left:0; color: var(--color-accent);">&#10022;</span>
+            <%= item %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="img-reveal mask-reveal" data-reveal style="border-radius: var(--radius-md); overflow:hidden; aspect-ratio: 3 / 4;">
+      <!-- PLACEHOLDER: swap for real treatment photography -->
+      <img src="<%= service.heroImage %>" alt="<%= service.name %> at Umoya Wellness Spa" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<% if (service.faq && service.faq.length) { %>
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow">Questions</span>
+      <h2 class="heading-lg">FAQ: <%= service.name %></h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      <% service.faq.forEach(function(item) { %>
+        <div class="faq-item">
+          <button class="faq-item__trigger" aria-expanded="false">
+            <span><%= item.q %></span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__panel">
+            <div class="faq-item__panel-inner"><%= item.a %></div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============ RELATED SERVICES ============ -->
+<% if (otherServices && otherServices.length) { %>
+<section class="section section--light">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">More In <%= service.category %></span>
+      <h2 class="heading-lg">You Might Also Like</h2>
+    </div>
+    <div class="card-grid" data-reveal-group>
+      <% otherServices.forEach(function(s) { %>
+        <a href="/services/<%= s.slug %>" class="text-card" data-cursor="view">
+          <h3 class="text-card__title"><%= s.name %></h3>
+          <p class="text-card__text"><%= s.tagline %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-band cta-band--final">
+  <div class="container cta-band__content" data-reveal>
+    <span class="eyebrow">Ready When You Are</span>
+    <h2 class="heading-lg cta-band__title">Begin with a conversation, <em>not a commitment.</em></h2>
+    <div class="hero__ctas" style="justify-content:center;">
+      <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
+      <a href="/contact" class="link-underline" data-cursor="view">Or send us a message</a>
+    </div>
+  </div>
+</section>

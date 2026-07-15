@@ -1,0 +1,42 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: var(--charcoal-950);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preloader__logo {
+  width: min(320px, 62vw);
+  height: auto;
+  filter: drop-shadow(0 0 24px var(--gold-glow));
+}
+
+/* Line-draw + fade choreography: mark path draws in first, wordmark fades up after. */
+.preloader__logo .logo-mark-path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: logo-draw 1.6s var(--ease-out) forwards;
+}
+.preloader__logo .logo-wordmark {
+  opacity: 0;
+  animation: logo-word-fade 0.9s var(--ease-out) 0.9s forwards;
+}
+@keyframes logo-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes logo-word-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.preloader.is-leaving {
+  transition: transform 0.9s var(--ease-in-out), opacity 0.7s ease;
+  transform: translateY(-100%);
+}
+.preloader.is-hidden { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+}

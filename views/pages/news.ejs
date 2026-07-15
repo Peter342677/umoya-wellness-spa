@@ -1,0 +1,43 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real spa photography -->
+    <img src="/assets/images/news/news-hero.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade">News &amp; Journal</span>
+      <h1 class="hero__title" data-split-text="immediate">The Umoya <em>Journal</em></h1>
+      <p class="hero__subhead">Openings, education, and honest insight from the treatment room.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARTICLES ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="news-grid" data-reveal-group>
+      <% news.forEach(function(article) {
+        var d = new Date(article.date);
+        var formatted = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      %>
+        <article class="news-card">
+          <p class="news-card__date"><%= formatted %></p>
+          <h2 class="news-card__title"><%= article.title %></h2>
+          <p class="news-card__excerpt"><%= article.excerpt %></p>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOLLOW STRIP ============ -->
+<section class="section section--dark" style="padding-top:0;">
+  <div class="container cta-strip" data-reveal>
+    <div>
+      <span class="eyebrow">Stay In Touch</span>
+      <h3 class="heading-sm">Follow <%= site.social.instagramHandle %> for openings, education, and behind-the-scenes.</h3>
+    </div>
+    <a href="<%= site.social.instagram %>" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--magnetic" data-cursor="view">Follow on Instagram</a>
+  </div>
+</section>

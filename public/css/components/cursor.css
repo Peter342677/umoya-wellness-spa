@@ -1,0 +1,84 @@
+/* Smoke/mist canvas - floats above section backgrounds as a translucent
+   mist layer (below the header), painted in warm gold/cream/terracotta at
+   very low alpha so it reads as breath drifting over the charcoal canvas. */
+#fx-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 450; /* above content, below --z-header (500) */
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Cursor canvas - a separate top layer so the gold ring/dot rides above everything. */
+#cursor-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+}
+
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--z-cursor) + 1);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--charcoal-950);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-label.is-visible { opacity: 1; }
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: calc(var(--z-header) + 1);
+  pointer-events: none;
+}
+.scroll-progress__bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--gold-500), var(--terracotta-400));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Page transition curtain */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  background: var(--charcoal-950);
+  transform: translateY(101%);
+  pointer-events: none;
+}
+.page-transition.is-active {
+  transform: translateY(0);
+  transition: transform 0.55s var(--ease-in-out);
+}
+.page-transition.is-leaving {
+  transform: translateY(-101%);
+  transition: transform 0.55s var(--ease-in-out);
+}
+
+@media (hover: none), (pointer: coarse) {
+  #cursor-canvas, .cursor-label { display: none; }
+  body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button { cursor: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #fx-canvas, #cursor-canvas, .cursor-label { display: none; }
+  body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button { cursor: auto; }
+}

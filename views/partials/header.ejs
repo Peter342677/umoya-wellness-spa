@@ -1,0 +1,49 @@
+<header class="site-header" id="site-header">
+  <div class="container site-header__row">
+    <a href="/" class="site-header__logo" aria-label="<%= site.brand.name %> home">
+      <%- include('logo', { variant: 'gold', showTag: false }) %>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <button class="main-nav__toggle" id="navToggle" aria-expanded="false" aria-controls="mainNavList">
+        <span></span><span></span><span></span>
+        <span class="visually-hidden">Toggle menu</span>
+      </button>
+
+      <ul class="main-nav__list" id="mainNavList">
+        <li><a href="/" class="link-underline<%= currentPath === '/' ? ' is-active' : '' %>">Home</a></li>
+
+        <li class="has-dropdown">
+          <button class="main-nav__dropdown-trigger" aria-expanded="false">Services</button>
+          <div class="mega-dropdown">
+            <ul>
+              <li style="--i:0"><a href="/services" class="link-underline">All Services</a></li>
+              <% site.nav.services.forEach(function(item, i) { %>
+                <li style="--i:<%= i + 1 %>"><a href="/services/<%= item.slug %>" class="link-underline"><%= item.name %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </li>
+
+        <li><a href="/packages" class="link-underline<%= currentPath === '/packages' ? ' is-active' : '' %>">Packages</a></li>
+        <li><a href="/about" class="link-underline<%= currentPath === '/about' ? ' is-active' : '' %>">About Us</a></li>
+
+        <li class="has-dropdown">
+          <button class="main-nav__dropdown-trigger" aria-expanded="false">More</button>
+          <div class="mega-dropdown">
+            <ul>
+              <li style="--i:0"><a href="/learn-more" class="link-underline">Learn More</a></li>
+              <li style="--i:1"><a href="/news" class="link-underline">News &amp; Journal</a></li>
+              <li style="--i:2"><a href="/contact" class="link-underline">Contact</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="<%= site.contact.phoneHref %>" class="site-header__phone link-underline"><%= site.contact.phone %></a>
+      <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
+    </div>
+  </div>
+</header>

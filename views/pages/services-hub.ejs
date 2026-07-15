@@ -1,0 +1,47 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real treatment-room photography -->
+    <img src="/assets/images/services/services-hero.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade">Our Services</span>
+      <h1 class="hero__title" data-split-text="immediate">Care, <em>Curated</em></h1>
+      <p class="hero__subhead">Body contouring, medical wellness, and aesthetics. Every treatment RN-led, every plan built around you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE CATEGORIES ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <% Object.keys(grouped).forEach(function(category) { %>
+      <h2 class="service-category-heading"><%= category %></h2>
+      <div class="card-grid" data-reveal-group style="margin-bottom: var(--space-lg);">
+        <% grouped[category].forEach(function(s) { %>
+          <a href="/services/<%= s.slug %>" class="service-card" data-cursor="view">
+            <!-- PLACEHOLDER: swap for real treatment photography -->
+            <img class="service-card__img" src="<%= s.heroImage %>" alt="<%= s.name %>" loading="lazy" />
+            <div class="service-card__body">
+              <span class="service-card__category"><%= s.category %></span>
+              <h3 class="service-card__title"><%= s.name %></h3>
+              <p class="service-card__text"><%= s.tagline %></p>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- ============ NOT SURE CTA ============ -->
+<section class="section section--dark" style="padding-top:0;">
+  <div class="container cta-strip" data-reveal>
+    <div>
+      <span class="eyebrow">Not Sure Where to Start?</span>
+      <h3 class="heading-sm">Book a consultation and we'll build a plan together. No pressure, no guesswork.</h3>
+    </div>
+    <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
+  </div>
+</section>
