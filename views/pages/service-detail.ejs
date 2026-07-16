@@ -10,9 +10,10 @@
       <h1 class="hero__title" data-split-text="immediate" style="font-size: var(--fs-h2);"><%= service.name %></h1>
       <p class="hero__subhead"><%= service.pitch %></p>
       <div class="hero__ctas">
-        <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Your Session</a>
+        <a href="/book?service=<%= service.slug %>" class="btn btn--primary btn--magnetic" data-cursor="book">Book Your Session</a>
         <a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a>
       </div>
+      <p class="text-muted" style="margin-top:1.2rem; font-size:0.85rem;"><%= site.booking.depositAmountFormatted %> deposit to reserve &middot; remaining balance due at your appointment</p>
     </div>
   </div>
 </section>
@@ -91,7 +92,7 @@
     <span class="eyebrow">Ready When You Are</span>
     <h2 class="heading-lg cta-band__title">Begin with a conversation, <em>not a commitment.</em></h2>
     <div class="hero__ctas" style="justify-content:center;">
-      <a href="<%= site.bookingUrl %>" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
+      <a href="/book?service=<%= service.slug %>" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
       <a href="/contact" class="link-underline" data-cursor="view">Or send us a message</a>
     </div>
   </div>

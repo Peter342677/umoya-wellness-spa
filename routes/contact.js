@@ -1,33 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const path = require('path');
-const nodemailer = require('nodemailer');
+
+const { sendNotification } = require('../lib/mailer');
 
 const SUBMISSIONS_FILE = path.join(__dirname, '..', 'data', 'submissions', 'submissions.json');
-
-function saveSubmissionLocally(entry) {
-  let existing = [];
-  try {
-    existing = JSON.parse(fs.readFileSync(SUBMISSIONS_FILE, 'utf8'));
-  } catch (e) {
-    existing = [];
-  }
-  existing.push(entry);
-  fs.mkdirSync(path.dirname(SUBMISSIONS_FILE), { recursive: true });
-  fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(existing, null, 2));
-}
-
-function getTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT) || 587,
-    secure: Number(SMTP_PORT) === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-}
+const TO_ADDRESS = process.env.CONTACT_TO_EMAIL || 'umoyahelp@gmail.com';
 
 router.get('/contact', (req, res) => {
   res.render('pages/contact', {
@@ -37,8 +15,8 @@ router.get('/contact', (req, res) => {
   });
 });
 
-// TODO: swap saveSubmissionLocally/nodemailer for a real email/CRM integration
-// (e.g. SendGrid, or push straight into the Vagaro/CRM lead pipeline).
+// TODO: swap the local-file fallback for a real CRM integration
+// (e.g. push straight into the Vagaro/CRM lead pipeline).
 router.post('/contact', async (req, res) => {
   const { name, email, phone, message } = req.body;
 
@@ -54,27 +32,16 @@ router.post('/contact', async (req, res) => {
     submittedAt: new Date().toISOString(),
   };
 
-  const transporter = getTransporter();
-  const toAddress = process.env.CONTACT_TO_EMAIL || 'umoyahelp@gmail.com';
+  const result = await sendNotification({
+    to: TO_ADDRESS,
+    replyTo: email,
+    subject: `New contact submission from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || '-'}\nMessage: ${message || '-'}`,
+    fallbackFile: SUBMISSIONS_FILE,
+    fallbackEntry: entry,
+  });
 
-  try {
-    if (transporter) {
-      await transporter.sendMail({
-        from: process.env.SMTP_FROM || process.env.SMTP_USER,
-        to: toAddress,
-        replyTo: email,
-        subject: `New contact submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || '-'}\nMessage: ${message || '-'}`,
-      });
-    } else {
-      saveSubmissionLocally(entry);
-    }
-    return res.json({ ok: true });
-  } catch (err) {
-    console.error('Mail send failed, falling back to local storage:', err.message);
-    saveSubmissionLocally(entry);
-    return res.json({ ok: true, fallback: true });
-  }
+  return res.json({ ok: true, fallback: !result.sent });
 });
 
 module.exports = router;

@@ -2,10 +2,20 @@ const express = require('express');
 const router = express.Router();
 
 const services = require('../data/services');
+const site = require('../data/site');
 
 // Display order for category groups on the hub - any new category not listed
 // here still renders, just appended after these.
 const CATEGORY_ORDER = ['Body Contouring', 'Medical Wellness', 'Aesthetics'];
+
+// Shared across every service detail page rather than duplicated in each of
+// the 7 objects in data/services.js - one place to edit if the policy changes.
+function pricingFaqEntry() {
+  return {
+    q: 'How does pricing work?',
+    a: `A ${site.booking.depositAmountFormatted} deposit reserves your appointment and is applied toward the cost of your treatment. The remaining balance is paid at the time of your visit.`,
+  };
+}
 
 router.get('/', (req, res) => {
   const categories = [...new Set(services.map((s) => s.category))].sort(
@@ -33,7 +43,7 @@ router.get('/:slug', (req, res, next) => {
   res.render('pages/service-detail', {
     pageTitle: `${service.name} | Umoya Wellness Spa`,
     pageDescription: service.pitch,
-    service,
+    service: { ...service, faq: [...(service.faq || []), pricingFaqEntry()] },
     otherServices,
   });
 });

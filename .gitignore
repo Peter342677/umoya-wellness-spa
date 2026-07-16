@@ -1,3 +1,4 @@
 node_modules/
 .env
 data/submissions/submissions.json
+data/submissions/bookings.json
