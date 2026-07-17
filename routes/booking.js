@@ -8,7 +8,15 @@ const express = require('express');
 const router = express.Router();
 
 const services = require('../data/services');
+const concierge = require('../data/concierge');
 const site = require('../data/site');
+
+// The medspa catalog plus the single Concierge Healthcare consultation
+// option - kept as one combined list so /book can validate and look up
+// either kind of appointment by slug, while data/services.js itself (used
+// by the homepage, /services hub, and the header's Services dropdown)
+// stays untouched.
+const bookableServices = [...services, concierge.bookingOption];
 
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY) return null;
@@ -18,13 +26,14 @@ function getStripe() {
 
 router.get('/book', (req, res) => {
   const selectedSlug = typeof req.query.service === 'string' ? req.query.service : '';
-  const selectedService = services.find((s) => s.slug === selectedSlug) || null;
+  const selectedService = bookableServices.find((s) => s.slug === selectedSlug) || null;
 
   res.render('pages/book', {
     pageTitle: 'Book Your Appointment | Umoya Wellness Spa',
     pageDescription:
       'Reserve your appointment at Umoya Wellness Spa with a $50 deposit. The remaining balance is paid at the time of your visit.',
     services,
+    conciergeOption: concierge.bookingOption,
     selectedService,
     canceled: req.query.canceled === '1',
     stripeConfigured: !!process.env.STRIPE_SECRET_KEY,
@@ -38,7 +47,7 @@ router.post('/book', async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Name, email, phone, and service are required.' });
   }
 
-  const service = services.find((s) => s.slug === serviceSlug);
+  const service = bookableServices.find((s) => s.slug === serviceSlug);
   if (!service) {
     return res.status(400).json({ ok: false, error: 'Please select a valid service.' });
   }

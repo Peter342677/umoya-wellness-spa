@@ -55,9 +55,14 @@
           <label for="bk-service">Service *</label>
           <select id="bk-service" name="serviceSlug" required <%= stripeConfigured ? '' : 'disabled' %>>
             <option value="">Select a service&hellip;</option>
-            <% services.forEach(function(s) { %>
-              <option value="<%= s.slug %>" <%= selectedService && selectedService.slug === s.slug ? 'selected' : '' %>><%= s.name %></option>
-            <% }) %>
+            <optgroup label="Medspa Services">
+              <% services.forEach(function(s) { %>
+                <option value="<%= s.slug %>" <%= selectedService && selectedService.slug === s.slug ? 'selected' : '' %>><%= s.name %></option>
+              <% }) %>
+            </optgroup>
+            <optgroup label="Concierge Healthcare">
+              <option value="<%= conciergeOption.slug %>" <%= selectedService && selectedService.slug === conciergeOption.slug ? 'selected' : '' %>><%= conciergeOption.name %></option>
+            </optgroup>
           </select>
         </div>
         <div class="form-field">

@@ -39,11 +39,13 @@
    popup background - only `color`/`background-color` on <option> itself
    are respected there, so without this the light theme text becomes
    invisible against that default light popup. */
-.form-field select option {
+.form-field select option,
+.form-field select optgroup {
   background: var(--charcoal-900);
   color: var(--text-on-dark);
 }
-.section--light .form-field select option {
+.section--light .form-field select option,
+.section--light .form-field select optgroup {
   background: var(--cream-100);
   color: var(--text-on-light);
 }
