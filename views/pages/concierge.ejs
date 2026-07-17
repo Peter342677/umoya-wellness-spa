@@ -1,0 +1,69 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real consultation/primary-care photography -->
+    <img src="/assets/images/misc/consult.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="badge hero__eyebrow" data-reveal="fade">A Different Kind of Care</span>
+      <h1 class="hero__title" data-split-text="immediate">Concierge Healthcare <em>Services</em></h1>
+      <p class="hero__subhead">Beyond the spa, Umoya offers a concierge healthcare membership built the same way we built everything else here: unhurried, honest, and centered on you.</p>
+      <div class="hero__ctas">
+        <a href="/contact" class="btn btn--primary btn--magnetic" data-cursor="view">Inquire About Membership</a>
+        <a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="section section--light">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow">What Concierge Care Means</span>
+      <h2 class="heading-lg">Whole-Person Care, <em>Without the Rush</em></h2>
+      <p class="text-muted" style="margin-top:1.2rem; max-width:56ch; margin-inline:auto;">Concierge healthcare means fewer patients per provider, more time per visit, and a care team that actually remembers your history. It's the same philosophy behind our medspa services, extended to primary and preventive care.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES GRID ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Included In Membership</span>
+      <h2 class="heading-lg">Every Service, <em>One Relationship</em></h2>
+    </div>
+    <div class="card-grid" data-reveal-group>
+      <% var icons = {
+        'primary-care': '<path d="M12 20s-6.5-4-9-8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2.5 4-9 8-9 8Z"/>',
+        'weight-loss': '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+        'lab-services': '<path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/>',
+        'urgent-care': '<circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/>',
+        'behavioral-health': '<path d="M12 3a7 7 0 0 0-7 7c0 3 2 4 2 6h10c0-2 2-3 2-6a7 7 0 0 0-7-7Z"/><path d="M9 20h6"/>',
+        'dermatology': '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11Z"/>',
+        'prescription-discount-program': '<path d="M4 14 14 4a4.2 4.2 0 0 1 6 6L10 20a4.2 4.2 0 0 1-6-6Z"/><path d="M8.5 9.5l6 6"/>'
+      }; %>
+      <% concierge.forEach(function(item) { %>
+        <div class="text-card">
+          <div class="info-tile__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><%- icons[item.slug] %></svg>
+          </div>
+          <h3 class="text-card__title"><%= item.name %></h3>
+          <p class="text-card__text"><%= item.text %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-band cta-band--final">
+  <div class="container cta-band__content" data-reveal>
+    <span class="eyebrow">Ready to Talk?</span>
+    <h2 class="heading-lg cta-band__title">Care built around <em>your whole life,</em> not just your chart.</h2>
+    <p class="cta-band__text">Send us a message and we'll walk you through concierge membership options.</p>
+    <a href="/contact" class="btn btn--primary btn--magnetic" data-cursor="view">Contact Us</a>
+  </div>
+</section>

@@ -6,6 +6,7 @@ const testimonials = require('../data/testimonials');
 const faq = require('../data/faq');
 const packages = require('../data/packages');
 const news = require('../data/news');
+const concierge = require('../data/concierge');
 
 router.get('/', (req, res) => {
   res.render('pages/home', {
@@ -53,9 +54,18 @@ router.get('/news', (req, res) => {
   });
 });
 
+router.get('/concierge-healthcare', (req, res) => {
+  res.render('pages/concierge', {
+    pageTitle: 'Concierge Healthcare Services | Umoya Wellness Spa',
+    pageDescription:
+      'Primary care, weight loss, lab services, urgent care, behavioral health, dermatology, and a prescription discount program, all in one concierge membership.',
+    concierge,
+  });
+});
+
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/contact'];
+  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/concierge-healthcare', '/contact'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const all = [...staticRoutes, ...serviceRoutes];
 
