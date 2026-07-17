@@ -169,7 +169,9 @@
   gap: var(--space-lg);
   align-items: center;
 }
-.bio-block__portrait {
+/* Two classes (vs. plain .img-reveal's single-class rule below) so this
+   portrait ratio wins the cascade regardless of stylesheet source order. */
+.bio-block__portrait.img-reveal {
   border-radius: var(--radius-md);
   overflow: hidden;
   aspect-ratio: 4 / 5;
