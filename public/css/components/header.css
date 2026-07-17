@@ -133,7 +133,12 @@
 .main-nav__toggle.is-active span:nth-child(2) { opacity: 0; }
 .main-nav__toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 960px) {
+/* Raised from 960px: with 6 top-level items (Home, Services, Packages,
+   About Us, Concierge Healthcare, More) plus the phone number and Book Now
+   button, the flat desktop nav has no room below ~1160px and Chrome falls
+   back to shrinking flex items, wrapping "About Us" / "Concierge Healthcare"
+   text mid-word instead of taking a new line. */
+@media (max-width: 1200px) {
   .site-header__phone { display: none; }
 
   .main-nav__toggle { display: flex; }
