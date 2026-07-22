@@ -2,7 +2,7 @@
 // Add a new service by adding an object here; no new template needed.
 
 const BOOKING_URL =
-  'https://www.vagaro.com/Users/BusinessWidget.aspx?enc=MMLjhIwJMcwFQhXLL7ifVM6DHlQGCnu8rP6lE0HZmZrsBBzDVysE7/HTYs0iJUC9RujZR2Se8CvEHhy+6Vy4PPcePE4IQrYaMmPRatiD4m5CdV0CVBh1f89P1mmENd1lO9kwGFIFS70+hxeLN6CT8qMpjwNx2a1UMPP7wnoqYV44zaXckNwTgpL7+giYc9zrtTvC7uz6PfPRJ3kk+eIF0wZ7TEfSTc1GVChmKPiBFj65EMGo2kTg3sCw61sqvAMoArltSr7c7W1gVCZ5j6z16hLuDLMo1En1XV6LIjyVhXVJZG/dEYOjk0lXXG3WW85CnapBp9qqG2LrxBFW4W2c62TFTHfeeQ/nOpJo1o/CVJDPmv1ppgD8dcHg41tona3tr9q/IIXMXAyimJUFvrxGmUElG7/SgG8K1xNrq6khM+4=&c_type=tab';
+  'https://www.vagaro.com/Users/BusinessWidget.aspx?enc=MMLjhIwJMcwFQhXLL7ifVM6DHlQGCnu8rP6lE0HZmZrsBBzDVysE7/HTYs0iJUC9BanCf3m5mq5mpgPbKMjzw/9kDMx0VDO13gUgRRCJjRFfCNWE3yXN7sTExNbSQLMrqAPQxNhSco9Ls9aVVNvsEeLRNJh57hi1A6ymgTMBJeJ25l5Ps+Ff/N5QnxM+OSX+fHT9PPXD4YsOW9Dz5sKjpqP3rgDzzMk3LqRmfLjsW9UF2IZUeUaxvLiv+UicRpzlXvQjVWm7aMPDt+w/sQgtdXpJ0+0Yn0+Eyeq2FOU+81iy4RvD+ExGT7ya+AKgOMkEJQ9LeNiY990Qs1m4uXAo8mYr332yaoIkOgeFEl+r9FVXMK7YagXzc5fZ1qq8kamRnPEwBe+ap6nWdGLHR0so6F1cCF+MteyGt3LBNIVH/+2raLG1lkJiNbBgvI/S2J1MHCEH3K3VaXIJ6YXp7HtLUrsv/sGOkja59xZ7bdy8c+4=';
 
 const services = [
   {

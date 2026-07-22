@@ -1,7 +1,6 @@
 // Concierge Healthcare Services - a broader primary-care membership offering
 // alongside Umoya's medspa treatments. Kept separate from data/services.js
-// (the medspa catalog) since these aren't booked through the $50 deposit /
-// Stripe flow - inquiries route to /contact instead.
+// (the medspa catalog) since it's a distinct service line.
 module.exports = [
   {
     slug: 'primary-care',
@@ -53,13 +52,3 @@ module.exports = [
       'Member savings on prescription medications, so the cost of staying on top of your health is one less thing to worry about.',
   },
 ];
-
-// A single bookable entry representing an intro consultation, so the /book
-// flow (built around data/services.js's medspa catalog) has one selectable
-// option for Concierge Healthcare without listing all 7 sub-services as
-// separately bookable appointments.
-module.exports.bookingOption = {
-  slug: 'concierge-consultation',
-  category: 'Concierge Healthcare',
-  name: 'Concierge Healthcare Consultation',
-};
