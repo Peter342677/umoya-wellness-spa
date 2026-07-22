@@ -1,0 +1,9 @@
+<svg viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Umoya Wellness Spa">
+  <!-- Single-color version for stamps, engraving, one-color print, faxes, etc. -->
+  <path d="M54 30 C54 17 44 8 32 8 C19 8 9 18 9 31 C9 44 19 54 32 54 C42 54 49 47 49 38 C49 30 43 24 35 24 C28 24 23 29 23 36"
+    fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" />
+  <text x="66" y="38" font-family="'Playfair Display', 'Iowan Old Style', Georgia, serif"
+    font-size="32" font-weight="500" letter-spacing="1" fill="#000000">umoya</text>
+  <text x="68" y="54" font-family="'Inter', -apple-system, 'Segoe UI', sans-serif"
+    font-size="8.5" font-weight="500" letter-spacing="4.5" fill="#000000">WELLNESS SPA</text>
+</svg>
