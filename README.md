@@ -91,9 +91,13 @@ refresh tokens):
    events** under **Settings and sharing > Share with specific people or
    groups**.
 4. Set three env vars from that JSON key: `GOOGLE_SERVICE_ACCOUNT_EMAIL`
-   (`client_email`), `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` (`private_key`, kept
-   on one line with literal `\n` escapes), and `GOOGLE_CALENDAR_ID` (the
-   calendar's address, e.g. `umoyahelp@gmail.com` for a primary calendar).
+   (`client_email`), `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` (`private_key`), and
+   `GOOGLE_CALENDAR_ID` (the calendar's address, e.g. `umoyahelp@gmail.com`
+   for a primary calendar). For the private key, prefer base64-encoding it
+   (`node -e "console.log(Buffer.from(require('./key.json').private_key).toString('base64'))"`)
+   over pasting the raw multi-line PEM - hosting-panel env var UIs can mangle
+   backslashes/newlines on paste, which breaks PEM parsing at runtime
+   (`lib/googleCalendar.js` auto-detects either format).
 
 Without these three vars, `/book` automatically falls back to plain
 "Preferred Date" / "Preferred Time" text fields (the pre-calendar behavior)
