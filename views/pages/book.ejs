@@ -86,8 +86,18 @@
           <input id="bk-phone" name="phone" type="tel" required autocomplete="tel" <%= stripeConfigured ? '' : 'disabled' %> />
         </div>
         <div class="form-field" id="bk-slot-mode" style="display:<%= calendarConfigured ? 'block' : 'none' %>;">
-          <label for="bk-slot-date">Choose a Date *</label>
-          <input id="bk-slot-date" type="date" min="<%= minBookingDate %>" max="<%= maxBookingDate %>" <%= stripeConfigured ? '' : 'disabled' %> />
+          <label>Choose a Date *</label>
+          <div class="booking-calendar <%= stripeConfigured ? '' : 'booking-calendar--disabled' %>" id="bk-calendar" data-min="<%= minBookingDate %>" data-max="<%= maxBookingDate %>">
+            <div class="booking-calendar__header">
+              <button type="button" class="booking-calendar__nav" id="bk-cal-prev" aria-label="Previous month">&lsaquo;</button>
+              <span class="booking-calendar__title" id="bk-cal-title"></span>
+              <button type="button" class="booking-calendar__nav" id="bk-cal-next" aria-label="Next month">&rsaquo;</button>
+            </div>
+            <div class="booking-calendar__weekdays">
+              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+            <div class="booking-calendar__days" id="bk-cal-days"></div>
+          </div>
           <div id="bk-slots" class="slot-grid" style="margin-top:0.9rem;"></div>
           <p class="text-muted" id="bk-slot-status" style="margin-top:0.7rem; font-size:0.85rem;">Pick a date to see open times.</p>
           <input type="hidden" id="bk-slot-start" name="slotStart" />
