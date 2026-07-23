@@ -1,0 +1,101 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true">
+    <img src="/assets/images/misc/consult.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="badge hero__eyebrow" data-reveal="fade">Reserve Your Spot</span>
+      <h1 class="hero__title" data-split-text="immediate">Book Your <em>Appointment</em></h1>
+      <p class="hero__subhead"><%= site.booking.depositAmountFormatted %> reserves your appointment today. The remaining balance is paid in person at the time of your visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING FORM ============ -->
+<section class="section section--dark">
+  <div class="container grid-2col">
+    <div data-reveal>
+      <span class="eyebrow">How It Works</span>
+      <h2 class="heading-md">Three easy <em>steps</em></h2>
+      <ul style="margin-top:1.6rem; display:flex; flex-direction:column; gap:1.2rem;">
+        <li style="padding-left:1.8rem; position:relative;">
+          <span style="position:absolute; left:0; color: var(--color-accent); font-family: var(--font-display);">1</span>
+          Choose your service and share a few details, including a preferred date and time.
+        </li>
+        <li style="padding-left:1.8rem; position:relative;">
+          <span style="position:absolute; left:0; color: var(--color-accent); font-family: var(--font-display);">2</span>
+          Pay a <%= site.booking.depositAmountFormatted %> deposit securely by card to reserve your spot.
+        </li>
+        <li style="padding-left:1.8rem; position:relative;">
+          <span style="position:absolute; left:0; color: var(--color-accent); font-family: var(--font-display);">3</span>
+          We'll call or email you within one business day to confirm your exact appointment time. The remaining balance is paid at your visit.
+        </li>
+      </ul>
+
+      <div class="text-card" style="margin-top:2rem;">
+        <h3 class="text-card__title">Questions before you book?</h3>
+        <p class="text-card__text">Call us at <a href="<%= site.contact.phoneHref %>" class="link-underline text-accent"><%= site.contact.phone %></a> or <a href="/contact" class="link-underline text-accent">send us a message</a>.</p>
+      </div>
+    </div>
+
+    <div class="contact-form-panel" data-reveal>
+      <h2>Reserve With a <%= site.booking.depositAmountFormatted %> Deposit</h2>
+      <p class="text-muted">You'll be redirected to our secure payment page to complete your deposit.</p>
+
+      <% if (canceled) { %>
+        <div class="form-status is-error" style="display:block;">Checkout was canceled - no payment was taken. Feel free to try again whenever you're ready.</div>
+      <% } %>
+      <% if (!stripeConfigured) { %>
+        <div class="form-status is-error" style="display:block;">Online booking payments are temporarily unavailable. Please call us at <%= site.contact.phone %> to book.</div>
+      <% } %>
+
+      <form id="bookingForm" class="js-booking-form" action="/book" method="POST" novalidate>
+        <div class="form-field">
+          <label for="bk-service">Service *</label>
+          <select id="bk-service" name="serviceSlug" required <%= stripeConfigured ? '' : 'disabled' %>>
+            <option value="">Select a service&hellip;</option>
+            <optgroup label="Medspa Services">
+              <% services.forEach(function(s) { %>
+                <option value="<%= s.slug %>" <%= selectedService && selectedService.slug === s.slug ? 'selected' : '' %>><%= s.name %></option>
+              <% }) %>
+            </optgroup>
+            <optgroup label="Concierge Healthcare">
+              <option value="<%= conciergeOption.slug %>" <%= selectedService && selectedService.slug === conciergeOption.slug ? 'selected' : '' %>><%= conciergeOption.name %></option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="bk-name">Full Name *</label>
+          <input id="bk-name" name="name" type="text" required autocomplete="name" <%= stripeConfigured ? '' : 'disabled' %> />
+        </div>
+        <div class="form-field">
+          <label for="bk-email">Email *</label>
+          <input id="bk-email" name="email" type="email" required autocomplete="email" <%= stripeConfigured ? '' : 'disabled' %> />
+        </div>
+        <div class="form-field">
+          <label for="bk-phone">Phone *</label>
+          <input id="bk-phone" name="phone" type="tel" required autocomplete="tel" <%= stripeConfigured ? '' : 'disabled' %> />
+        </div>
+        <div class="grid-2col" style="gap:1rem;">
+          <div class="form-field">
+            <label for="bk-date">Preferred Date</label>
+            <input id="bk-date" name="preferredDate" type="date" <%= stripeConfigured ? '' : 'disabled' %> />
+          </div>
+          <div class="form-field">
+            <label for="bk-time">Preferred Time</label>
+            <input id="bk-time" name="preferredTime" type="time" <%= stripeConfigured ? '' : 'disabled' %> />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="bk-notes">Anything we should know?</label>
+          <textarea id="bk-notes" name="notes" <%= stripeConfigured ? '' : 'disabled' %>></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary form-submit" <%= stripeConfigured ? '' : 'disabled' %>>
+          Continue to Payment - <%= site.booking.depositAmountFormatted %>
+        </button>
+        <div class="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>

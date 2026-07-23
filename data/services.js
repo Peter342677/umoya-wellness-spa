@@ -1,9 +1,6 @@
 // Service catalog - data-driven source for /services and /services/:slug
 // Add a new service by adding an object here; no new template needed.
 
-const BOOKING_URL =
-  'https://www.vagaro.com/Users/BusinessWidget.aspx?enc=MMLjhIwJMcwFQhXLL7ifVM6DHlQGCnu8rP6lE0HZmZrsBBzDVysE7/HTYs0iJUC9BanCf3m5mq5mpgPbKMjzw/9kDMx0VDO13gUgRRCJjRFfCNWE3yXN7sTExNbSQLMrqAPQxNhSco9Ls9aVVNvsEeLRNJh57hi1A6ymgTMBJeJ25l5Ps+Ff/N5QnxM+OSX+fHT9PPXD4YsOW9Dz5sKjpqP3rgDzzMk3LqRmfLjsW9UF2IZUeUaxvLiv+UicRpzlXvQjVWm7aMPDt+w/sQgtdXpJ0+0Yn0+Eyeq2FOU+81iy4RvD+ExGT7ya+AKgOMkEJQ9LeNiY990Qs1m4uXAo8mYr332yaoIkOgeFEl+r9FVXMK7YagXzc5fZ1qq8kamRnPEwBe+ap6nWdGLHR0so6F1cCF+MteyGt3LBNIVH/+2raLG1lkJiNbBgvI/S2J1MHCEH3K3VaXIJ6YXp7HtLUrsv/sGOkja59xZ7bdy8c+4=';
-
 const services = [
   {
     slug: 't-shape-2-body-contouring',
@@ -158,4 +155,3 @@ const services = [
 ];
 
 module.exports = services;
-module.exports.BOOKING_URL = BOOKING_URL;

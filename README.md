@@ -22,8 +22,10 @@ routes/
   index.js                 Home, About, Packages, Learn More, News, sitemap, robots
   services.js              /services hub + /services/:slug detail pages
   contact.js               /contact page + POST handler (email or local JSON fallback)
+  booking.js               /book form + Stripe Checkout Session creation
+  stripeWebhook.js         Stripe webhook - source of truth for a paid deposit
 data/
-  site.js                  Brand, contact info, hours, socials, booking URL, nav
+  site.js                  Brand, contact info, hours, socials, deposit amount, nav
   services.js              Service catalog (single source for routes, nav, footer)
   packages.js              Package cards
   testimonials.js          Paraphrased Google reviews
@@ -52,11 +54,17 @@ scripts/
   `<!-- PLACEHOLDER: ... -->` comment in the views. Drop real photos into
   `public/assets/images/...` under the same filenames (or update the paths in
   `data/services.js` and the views).
-- **Booking link** - set once in `data/services.js` (`BOOKING_URL`); every Book
-  Now button site-wide reads it from `site.bookingUrl`.
-- **Contact form email** - set the `SMTP_*` vars in `.env` to send real email via
-  Nodemailer; until then submissions append to `data/submissions/submissions.json`.
-  See the `TODO` in `routes/contact.js` for wiring a CRM instead.
+- **Booking** - every Book Now button site-wide links to `/book`, which creates a
+  Stripe Checkout Session for the `$50` deposit set in `data/site.js`
+  (`booking.depositAmount`). Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`
+  in `.env` to enable it; without them `/book` still renders but shows "payments
+  temporarily unavailable." The webhook in `routes/stripeWebhook.js` is the
+  source of truth for a paid deposit and emails a notification to
+  `CONTACT_TO_EMAIL`.
+- **Contact form + booking notification email** - set the `SMTP_*` vars in `.env`
+  to send real email via Nodemailer; until then, submissions/bookings append to
+  `data/submissions/*.json`. See the `TODO` in `routes/contact.js` for wiring a
+  CRM instead.
 - **Business info** (hours, phone, address, Instagram) - all in `data/site.js`.
 - **Packages/pricing** - cards intentionally say "Book to inquire about pricing";
   add a `price` field in `data/packages.js` and render it in

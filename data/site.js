@@ -1,6 +1,5 @@
-// Site-wide constants: contact info, socials, nav structure, booking link.
+// Site-wide constants: contact info, socials, nav structure.
 const services = require('./services');
-const { BOOKING_URL } = services;
 
 module.exports = {
   brand: {
@@ -25,7 +24,12 @@ module.exports = {
     instagram: 'https://www.instagram.com/yourumoya',
     instagramHandle: '@yourumoya',
   },
-  bookingUrl: BOOKING_URL,
+  // $50 deposit due at booking (via Stripe Checkout at /book); the remaining
+  // balance is paid in person at the time of the appointment.
+  booking: {
+    depositAmount: 50,
+    depositAmountFormatted: '$50',
+  },
   nav: {
     services,
   },

@@ -34,6 +34,9 @@
 }
 .form-field textarea { min-height: 120px; resize: vertical; }
 
+.form-field select option, .form-field select optgroup { background: var(--charcoal-900); color: var(--text-on-dark); }
+.section--light .form-field select option, .section--light .form-field select optgroup { background: var(--cream-100); color: var(--text-on-light); }
+
 .form-status {
   margin-top: 1rem;
   padding: 0.9rem 1.1rem;

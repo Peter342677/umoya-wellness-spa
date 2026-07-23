@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const services = require('../data/services');
+const site = require('../data/site');
+
+function pricingFaqEntry() {
+  return {
+    q: 'How does pricing work?',
+    a: `A ${site.booking.depositAmountFormatted} deposit reserves your appointment. The remaining balance is paid in person at the time of your visit.`,
+  };
+}
 
 // Display order for category groups on the hub - any new category not listed
 // here still renders, just appended after these.
@@ -33,7 +41,7 @@ router.get('/:slug', (req, res, next) => {
   res.render('pages/service-detail', {
     pageTitle: `${service.name} | Umoya Wellness Spa`,
     pageDescription: service.pitch,
-    service,
+    service: { ...service, faq: [...(service.faq || []), pricingFaqEntry()] },
     otherServices,
   });
 });

@@ -26,6 +26,13 @@ app.use(
 );
 app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+
+// Stripe webhook signature verification needs the exact raw request bytes,
+// so it must be mounted with express.raw() before the global JSON/urlencoded
+// parsers below consume the body.
+app.use('/webhooks/stripe', express.raw({ type: 'application/json' }));
+app.use('/', require('./routes/stripeWebhook'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,6 +54,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'));
 app.use('/services', require('./routes/services'));
 app.use('/', require('./routes/contact'));
+app.use('/', require('./routes/booking'));
 
 // ---------- 404 ----------
 app.use((req, res) => {
