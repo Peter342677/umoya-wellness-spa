@@ -54,6 +54,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'));
 app.use('/services', require('./routes/services'));
 app.use('/', require('./routes/contact'));
+app.use('/', require('./routes/availability'));
 app.use('/', require('./routes/booking'));
 
 // ---------- 404 ----------

@@ -7,9 +7,13 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
+const { DateTime } = require('luxon');
+
 const site = require('../data/site');
 const { sendNotification } = require('../lib/mailer');
 const { appendJsonEntry } = require('../lib/jsonStore');
+const { createAppointmentEvent } = require('../lib/googleCalendar');
+const { TIME_ZONE } = require('../lib/availability');
 
 const BOOKINGS_FILE = path.join(__dirname, '..', 'data', 'submissions', 'bookings.json');
 const NOTIFY_ADDRESS = process.env.CONTACT_TO_EMAIL || 'umoyahelp@gmail.com';
@@ -51,27 +55,59 @@ router.post('/webhooks/stripe', async (req, res) => {
       preferredDate: meta.preferredDate || '',
       preferredTime: meta.preferredTime || '',
       notes: meta.notes || '',
+      slotStart: meta.slotStart || '',
+      slotEnd: meta.slotEnd || '',
       depositPaid: ((session.amount_total || 0) / 100).toFixed(2),
       stripeSessionId: session.id,
       paidAt: new Date().toISOString(),
     };
 
+    const appointmentLabel = booking.slotStart
+      ? DateTime.fromISO(booking.slotStart, { zone: 'utc' }).setZone(TIME_ZONE).toFormat("cccc, LLLL d 'at' h:mm a")
+      : '';
+
     // Persist first, unconditionally - this record must exist regardless of
-    // whether the notification email below succeeds or SMTP is configured.
+    // whether the notification email or calendar sync below succeed.
     appendJsonEntry(BOOKINGS_FILE, booking);
+
+    // Adds the confirmed appointment straight to Cheryl's Google Calendar.
+    // Best-effort: a calendar hiccup shouldn't fail the webhook or block the
+    // notification emails below, since the booking record is already saved.
+    if (booking.slotStart && booking.slotEnd) {
+      try {
+        await createAppointmentEvent({
+          summary: `${booking.serviceName} - ${booking.name}`,
+          description:
+            `Booked via website - $${booking.depositPaid} deposit paid.\n\n` +
+            `Client: ${booking.name}\n` +
+            `Email: ${booking.email}\n` +
+            `Phone: ${booking.phone}\n` +
+            `Notes: ${booking.notes || '-'}\n\n` +
+            `Stripe session: ${booking.stripeSessionId}`,
+          startISO: booking.slotStart,
+          endISO: booking.slotEnd,
+        });
+      } catch (err) {
+        console.error('Failed to create Google Calendar event for booking:', err.message);
+      }
+    }
 
     await sendNotification({
       to: NOTIFY_ADDRESS,
       replyTo: booking.email,
       subject: `New booking deposit paid: ${booking.serviceName} (${booking.name})`,
       text:
-        `A $${booking.depositPaid} deposit has been paid and a new appointment needs to be confirmed.\n\n` +
+        `A $${booking.depositPaid} deposit has been paid` +
+        (appointmentLabel
+          ? ` and the appointment is confirmed for ${appointmentLabel} (already added to your Google Calendar).\n\n`
+          : ` and a new appointment needs to be confirmed.\n\n`) +
         `Service: ${booking.serviceName}\n` +
         `Name: ${booking.name}\n` +
         `Email: ${booking.email}\n` +
         `Phone: ${booking.phone}\n` +
-        `Preferred date: ${booking.preferredDate || '-'}\n` +
-        `Preferred time: ${booking.preferredTime || '-'}\n` +
+        (appointmentLabel
+          ? ''
+          : `Preferred date: ${booking.preferredDate || '-'}\n` + `Preferred time: ${booking.preferredTime || '-'}\n`) +
         `Notes: ${booking.notes || '-'}\n\n` +
         `Stripe session: ${booking.stripeSessionId}`,
     });
@@ -85,8 +121,10 @@ router.post('/webhooks/stripe', async (req, res) => {
           `Hi ${booking.name},\n\n` +
           `We've received your $${booking.depositPaid} deposit for ${booking.serviceName}. ` +
           `The remaining balance will be due at the time of your visit.\n\n` +
-          `We'll be in touch shortly to confirm your exact appointment time` +
-          (booking.preferredDate ? ` (you requested ${booking.preferredDate}${booking.preferredTime ? ' at ' + booking.preferredTime : ''}).` : '.') +
+          (appointmentLabel
+            ? `Your appointment is confirmed for ${appointmentLabel}.`
+            : `We'll be in touch shortly to confirm your exact appointment time` +
+              (booking.preferredDate ? ` (you requested ${booking.preferredDate}${booking.preferredTime ? ' at ' + booking.preferredTime : ''}).` : '.')) +
           `\n\nQuestions in the meantime? Call us at ${site.contact.phone}.\n\n- Umoya Wellness Spa`,
       }).catch((err) => console.error('Customer confirmation email failed:', err.message));
     }

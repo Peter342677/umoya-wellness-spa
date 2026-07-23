@@ -49,6 +49,26 @@
 
 .form-submit { width: 100%; justify-content: center; }
 
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 0.6rem;
+}
+.slot-grid__btn {
+  padding: 0.65em 0.5em;
+  font-size: 0.85rem;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-dark);
+  background: rgba(243,237,228,0.04);
+  color: var(--text-on-dark);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+.section--light .slot-grid__btn { border-color: var(--color-border-light); background: rgba(26,23,20,0.03); color: var(--text-on-light); }
+.slot-grid__btn:hover { border-color: var(--color-accent); }
+.slot-grid__btn.is-selected { border-color: var(--color-accent); background: rgba(184,151,104,0.16); color: var(--color-accent); }
+
 .contact-form-panel {
   background: rgba(243,237,228,0.03);
   border: 1px solid var(--color-border-dark);

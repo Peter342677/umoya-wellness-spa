@@ -9,11 +9,74 @@
   var status = form.querySelector('.form-status');
   var submitBtn = form.querySelector('[type="submit"]');
 
+  /* Slot picker: only active when #bk-slot-mode is present and visible
+     (server renders it visible when Google Calendar is configured). Falls
+     back to the plain preferred date/time fields otherwise. */
+  var slotMode = document.getElementById('bk-slot-mode');
+  var slotModeActive = !!slotMode && slotMode.style.display !== 'none';
+  var slotDateInput = document.getElementById('bk-slot-date');
+  var slotsContainer = document.getElementById('bk-slots');
+  var slotStatus = document.getElementById('bk-slot-status');
+  var slotStartField = document.getElementById('bk-slot-start');
+  var slotEndField = document.getElementById('bk-slot-end');
+
+  if (slotModeActive && slotDateInput) {
+    slotDateInput.addEventListener('change', function () {
+      slotStartField.value = '';
+      slotEndField.value = '';
+      loadSlots(slotDateInput.value);
+    });
+  }
+
+  function loadSlots(dateStr) {
+    if (!dateStr) return;
+    slotsContainer.innerHTML = '';
+    slotStatus.textContent = 'Loading open times...';
+
+    fetch('/api/availability?date=' + encodeURIComponent(dateStr))
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (!json.ok) throw new Error(json.error || 'Could not load availability.');
+
+        if (!json.slots || !json.slots.length) {
+          slotStatus.textContent = 'No open times that day - try another date, or call us at the number above.';
+          return;
+        }
+
+        slotStatus.textContent = 'Select an available time:';
+        json.slots.forEach(function (slot) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'slot-grid__btn';
+          btn.textContent = slot.label;
+          btn.addEventListener('click', function () {
+            var prev = slotsContainer.querySelector('.slot-grid__btn.is-selected');
+            if (prev) prev.classList.remove('is-selected');
+            btn.classList.add('is-selected');
+            slotStartField.value = slot.start;
+            slotEndField.value = slot.end;
+          });
+          slotsContainer.appendChild(btn);
+        });
+      })
+      .catch(function (err) {
+        slotStatus.textContent = err.message || 'Could not load availability. Please call us to book.';
+      });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     if (!form.checkValidity()) {
       form.reportValidity();
+      return;
+    }
+
+    if (slotModeActive && !slotStartField.value) {
+      if (status) {
+        status.className = 'form-status is-error';
+        status.textContent = 'Please choose a date and an available time.';
+      }
       return;
     }
 

@@ -24,6 +24,7 @@ routes/
   contact.js               /contact page + POST handler (email or local JSON fallback)
   booking.js               /book form + Stripe Checkout Session creation
   stripeWebhook.js         Stripe webhook - source of truth for a paid deposit
+  availability.js          /api/availability - open slots from Google Calendar
 data/
   site.js                  Brand, contact info, hours, socials, deposit amount, nav
   services.js              Service catalog (single source for routes, nav, footer)
@@ -31,6 +32,11 @@ data/
   testimonials.js          Paraphrased Google reviews
   faq.js / news.js         FAQ + journal placeholder content
   submissions/             Contact form submissions land here when SMTP is unset
+lib/
+  mailer.js                Nodemailer wrapper - SMTP send, falls back to JSON file
+  jsonStore.js             Appends submissions/bookings to local JSON files
+  googleCalendar.js        Service-account auth, freebusy query, event creation
+  availability.js          Business hours + slot math (Luxon, America/Denver)
 views/
   layout.ejs               Shared shell (head/SEO, canvases, preloader, scripts)
   partials/                header, footer, logo (inline SVG, 3 variants)
@@ -69,6 +75,31 @@ scripts/
 - **Packages/pricing** - cards intentionally say "Book to inquire about pricing";
   add a `price` field in `data/packages.js` and render it in
   `views/pages/packages.ejs` when real pricing is confirmed.
+
+## Google Calendar integration (live availability + auto-synced appointments)
+
+`/book` shows real open slots from Cheryl's Google Calendar and, once a $50
+deposit is paid, writes the confirmed appointment straight onto it - no manual
+back-and-forth. This is a service-account integration (no login flow, no
+refresh tokens):
+
+1. Create a Google Cloud project, enable the **Google Calendar API**, and
+   create a service account (**IAM & Admin > Service Accounts**).
+2. Create a JSON key for it (**Keys > Add Key > Create new key > JSON**).
+3. Share the target calendar with the service account's email
+   (`...@project-id.iam.gserviceaccount.com`), granting **Make changes to
+   events** under **Settings and sharing > Share with specific people or
+   groups**.
+4. Set three env vars from that JSON key: `GOOGLE_SERVICE_ACCOUNT_EMAIL`
+   (`client_email`), `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY` (`private_key`, kept
+   on one line with literal `\n` escapes), and `GOOGLE_CALENDAR_ID` (the
+   calendar's address, e.g. `umoyahelp@gmail.com` for a primary calendar).
+
+Without these three vars, `/book` automatically falls back to plain
+"Preferred Date" / "Preferred Time" text fields (the pre-calendar behavior)
+and no events are created - nothing breaks, it just loses the live-availability
+feature. Business hours, appointment length (`lib/availability.js`), and the
+14-day booking window are all adjustable constants in that file.
 
 ## Accessibility & motion
 

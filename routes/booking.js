@@ -7,9 +7,15 @@
 const express = require('express');
 const router = express.Router();
 
+const { DateTime } = require('luxon');
+
 const services = require('../data/services');
 const concierge = require('../data/concierge');
 const site = require('../data/site');
+const { getAvailableSlots, BOOKING_WINDOW_DAYS, TIME_ZONE } = require('../lib/availability');
+const { isConfigured: calendarConfigured } = require('../lib/googleCalendar');
+
+const APPOINTMENT_DURATION_MINUTES = 60;
 
 // The medspa catalog plus the single Concierge Healthcare consultation
 // option - kept as one combined list so /book can validate and look up
@@ -28,6 +34,9 @@ router.get('/book', (req, res) => {
   const selectedSlug = typeof req.query.service === 'string' ? req.query.service : '';
   const selectedService = bookableServices.find((s) => s.slug === selectedSlug) || null;
 
+  const today = DateTime.now().setZone(TIME_ZONE).startOf('day');
+  const maxDate = today.plus({ days: BOOKING_WINDOW_DAYS });
+
   res.render('pages/book', {
     pageTitle: 'Book Your Appointment | Umoya Wellness Spa',
     pageDescription:
@@ -37,11 +46,14 @@ router.get('/book', (req, res) => {
     selectedService,
     canceled: req.query.canceled === '1',
     stripeConfigured: !!process.env.STRIPE_SECRET_KEY,
+    calendarConfigured: calendarConfigured(),
+    minBookingDate: today.toISODate(),
+    maxBookingDate: maxDate.toISODate(),
   });
 });
 
 router.post('/book', async (req, res) => {
-  const { name, email, phone, serviceSlug, preferredDate, preferredTime, notes } = req.body;
+  const { name, email, phone, serviceSlug, preferredDate, preferredTime, notes, slotStart, slotEnd } = req.body;
 
   if (!name || !email || !phone || !serviceSlug) {
     return res.status(400).json({ ok: false, error: 'Name, email, phone, and service are required.' });
@@ -50,6 +62,20 @@ router.post('/book', async (req, res) => {
   const service = bookableServices.find((s) => s.slug === serviceSlug);
   if (!service) {
     return res.status(400).json({ ok: false, error: 'Please select a valid service.' });
+  }
+
+  // A picked calendar slot is re-checked right before checkout, since it may
+  // have been booked by someone else in the time since the page loaded it.
+  if (slotStart && slotEnd) {
+    const slotDate = DateTime.fromISO(slotStart, { zone: 'utc' }).setZone(TIME_ZONE).toISODate();
+    const dayResult = await getAvailableSlots(slotDate, APPOINTMENT_DURATION_MINUTES);
+    const stillOpen = !dayResult.error && dayResult.slots.some((s) => s.start === slotStart && s.end === slotEnd);
+    if (!stillOpen) {
+      return res.status(409).json({
+        ok: false,
+        error: 'That time was just booked by someone else. Please choose another slot.',
+      });
+    }
   }
 
   const stripe = getStripe();
@@ -89,6 +115,8 @@ router.post('/book', async (req, res) => {
         preferredDate: preferredDate || '',
         preferredTime: preferredTime || '',
         notes: notes || '',
+        slotStart: slotStart || '',
+        slotEnd: slotEnd || '',
       },
       success_url: `${baseUrl}/book/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/book?canceled=1&service=${encodeURIComponent(service.slug)}`,
@@ -109,11 +137,16 @@ router.get('/book/success', async (req, res) => {
   if (stripe && sessionId) {
     try {
       const session = await stripe.checkout.sessions.retrieve(sessionId);
+      const meta = session.metadata || {};
       details = {
-        serviceName: session.metadata && session.metadata.serviceName,
+        serviceName: meta.serviceName,
         email: session.customer_details && session.customer_details.email,
         amountPaid: (session.amount_total / 100).toFixed(2),
         paymentStatus: session.payment_status,
+        appointmentLabel:
+          meta.slotStart
+            ? DateTime.fromISO(meta.slotStart, { zone: 'utc' }).setZone(TIME_ZONE).toFormat("cccc, LLLL d 'at' h:mm a")
+            : null,
       };
     } catch (err) {
       console.error('Could not retrieve checkout session:', err.message);

@@ -9,7 +9,12 @@
         <% } else { %>
           We've received your <%= site.booking.depositAmountFormatted %> deposit.
         <% } %>
-        We'll be in touch within one business day to confirm your exact appointment time. The remaining balance is paid at your visit.
+        <% if (details && details.appointmentLabel) { %>
+          Your appointment is confirmed for <strong><%= details.appointmentLabel %></strong>. It's already on our calendar.
+        <% } else { %>
+          We'll be in touch within one business day to confirm your exact appointment time.
+        <% } %>
+        The remaining balance is paid at your visit.
       </p>
       <div class="hero__ctas">
         <a href="/" class="btn btn--primary btn--magnetic" data-cursor="view">Back to Home</a>
