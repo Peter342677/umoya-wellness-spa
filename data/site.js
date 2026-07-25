@@ -15,9 +15,8 @@ module.exports = {
     mapEmbedSrc:
       'https://www.google.com/maps?q=2253+S+State+St+Ste+7,+South+Salt+Lake,+UT+84115&output=embed',
     hours: [
-      { days: 'Tuesday - Friday', time: '8:00 AM - 8:00 PM' },
-      { days: 'Saturday', time: '8:00 AM - 8:00 PM' },
-      { days: 'Sunday - Monday', time: 'Closed' },
+      { days: 'Wednesday - Saturday', time: '11:00 AM - 4:00 PM' },
+      { days: 'Sunday - Tuesday', time: 'Closed' },
     ],
   },
   social: {
