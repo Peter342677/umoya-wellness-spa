@@ -2,7 +2,10 @@
 <section class="hero hero--page">
   <div class="hero__bg" aria-hidden="true" data-parallax>
     <!-- PLACEHOLDER: swap for real treatment-room photography -->
-    <img src="/assets/images/services/services-hero.jpg" alt="" loading="eager" />
+    <picture>
+      <source srcset="/assets/images/services/services-hero.webp" type="image/webp" />
+      <img src="/assets/images/services/services-hero.jpg" alt="" loading="eager" />
+    </picture>
   </div>
   <div class="container">
     <div class="hero__content hero__content--center">
@@ -22,7 +25,10 @@
         <% grouped[category].forEach(function(s) { %>
           <a href="/services/<%= s.slug %>" class="service-card" data-cursor="view">
             <!-- PLACEHOLDER: swap for real treatment photography -->
-            <img class="service-card__img" src="<%= s.heroImage %>" alt="<%= s.name %>" loading="lazy" />
+            <picture>
+              <source srcset="<%= s.heroImage.replace(/\.jpg$/, '.webp') %>" type="image/webp" />
+              <img class="service-card__img" src="<%= s.heroImage %>" alt="<%= s.name %>" loading="lazy" />
+            </picture>
             <div class="service-card__body">
               <span class="service-card__category"><%= s.category %></span>
               <h3 class="service-card__title"><%= s.name %></h3>

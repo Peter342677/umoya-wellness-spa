@@ -2,7 +2,10 @@
 <section class="hero hero--page">
   <div class="hero__bg" aria-hidden="true" data-parallax>
     <!-- PLACEHOLDER: swap for real treatment photography -->
-    <img src="<%= service.heroImage %>" alt="" loading="eager" />
+    <picture>
+      <source srcset="<%= service.heroImage.replace(/\.jpg$/, '.webp') %>" type="image/webp" />
+      <img src="<%= service.heroImage %>" alt="" loading="eager" />
+    </picture>
   </div>
   <div class="container">
     <div class="hero__content">
@@ -36,7 +39,10 @@
 
     <div class="img-reveal mask-reveal" data-reveal style="border-radius: var(--radius-md); overflow:hidden; aspect-ratio: 3 / 4;">
       <!-- PLACEHOLDER: swap for real treatment photography -->
-      <img src="<%= service.heroImage %>" alt="<%= service.name %> at Umoya Wellness Spa" loading="lazy" />
+      <picture>
+        <source srcset="<%= service.heroImage.replace(/\.jpg$/, '.webp') %>" type="image/webp" />
+        <img src="<%= service.heroImage %>" alt="<%= service.name %> at Umoya Wellness Spa" loading="lazy" />
+      </picture>
     </div>
   </div>
 </section>

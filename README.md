@@ -140,6 +140,14 @@ feature. Business hours, appointment length (`lib/availability.js`), and the
   declared in `fonts.css`, re-fetch `https://fonts.googleapis.com/css2?family=...`
   with a browser user-agent to find the new variable-font URL rather than
   adding individual static-weight files.
+- **WebP images** - every `.jpg`/`.png` in `public/assets/images/` has a
+  `.webp` twin (51% smaller on average), served via
+  `<picture><source type="image/webp">` with the original JPG as the
+  `<img>` fallback. `final-cta-bg.jpg`'s CSS `background-image` uses
+  `image-set()` for the same fallback pattern. **After adding or replacing
+  any image, run `node scripts/convert-images-to-webp.js`** to regenerate
+  the `.webp` twin - it isn't automatic. `sharp` (used only by that script)
+  is a devDependency, not needed at runtime.
 
 ## Accessibility & motion
 

@@ -2,7 +2,10 @@
 <section class="hero">
   <div class="hero__bg" aria-hidden="true">
     <!-- Image fallback: shown while the video loads, on data-saver, and for prefers-reduced-motion -->
-    <img src="/assets/images/hero/hero-bg.jpg" alt="" loading="eager" />
+    <picture>
+      <source srcset="/assets/images/hero/hero-bg.webp" type="image/webp" />
+      <img src="/assets/images/hero/hero-bg.jpg" alt="" loading="eager" />
+    </picture>
     <!-- PLACEHOLDER: swap for real footage of the Umoya treatment room when available -->
     <video class="hero__video" autoplay muted loop playsinline preload="metadata"
       poster="/assets/images/hero/hero-bg.jpg" disablepictureinpicture>
@@ -64,7 +67,10 @@
 <section class="section section--light">
   <div class="container grid-2col">
     <div class="img-reveal mask-reveal" data-reveal data-parallax style="aspect-ratio: 4 / 5; border-radius: var(--radius-md);">
-      <img src="/assets/images/about/founder.jpg" alt="Cheryl Johnson, RN-BSN-FAACM, founder of Umoya Wellness Spa" loading="lazy" />
+      <picture>
+        <source srcset="/assets/images/about/founder.webp" type="image/webp" />
+        <img src="/assets/images/about/founder.jpg" alt="Cheryl Johnson, RN-BSN-FAACM, founder of Umoya Wellness Spa" loading="lazy" />
+      </picture>
     </div>
     <div data-reveal>
       <span class="eyebrow">Our Approach</span>
@@ -90,7 +96,10 @@
       <% services.forEach(function(s) { %>
         <a href="/services/<%= s.slug %>" class="service-card" data-cursor="view">
           <!-- PLACEHOLDER: swap for real treatment photography -->
-          <img class="service-card__img" src="<%= s.heroImage %>" alt="<%= s.name %>" loading="lazy" />
+          <picture>
+            <source srcset="<%= s.heroImage.replace(/\.jpg$/, '.webp') %>" type="image/webp" />
+            <img class="service-card__img" src="<%= s.heroImage %>" alt="<%= s.name %>" loading="lazy" />
+          </picture>
           <div class="service-card__body">
             <span class="service-card__category"><%= s.category %></span>
             <h3 class="service-card__title"><%= s.name %></h3>
