@@ -129,6 +129,17 @@ feature. Business hours, appointment length (`lib/availability.js`), and the
   to avoid double-counting pageviews.
 - `/sitemap.xml` and `/robots.txt` are generated dynamically in
   `routes/index.js`, not static files.
+- **Self-hosted fonts** - `public/fonts/*.woff2` + `public/css/fonts.css`
+  replace the Google Fonts `<link>` (which cost two render-blocking
+  round-trips: the CSS file, then the font file itself). Only 3 files are
+  needed because Google actually serves Inter and Playfair Display as
+  *variable* fonts even for "static" weight requests - each file covers a
+  weight range (`font-weight: 300 700` etc.) rather than one file per
+  weight. Latin subset only, since the site has no non-Latin content; if a
+  design change ever needs a weight/style outside the ranges already
+  declared in `fonts.css`, re-fetch `https://fonts.googleapis.com/css2?family=...`
+  with a browser user-agent to find the new variable-font URL rather than
+  adding individual static-weight files.
 
 ## Accessibility & motion
 
