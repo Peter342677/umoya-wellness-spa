@@ -75,7 +75,7 @@ app.use((req, res, next) => {
   res.locals.ogImage = '/assets/images/hero/hero-bg.jpg';
   // Set once real IDs are available - see .env.example. Layout only emits
   // the corresponding tags/scripts when these are present.
-  res.locals.gaMeasurementId = process.env.GA_MEASUREMENT_ID || '';
+  res.locals.gtmContainerId = process.env.GTM_CONTAINER_ID || '';
   res.locals.googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || '';
   next();
 });

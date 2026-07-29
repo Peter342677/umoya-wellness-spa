@@ -122,9 +122,11 @@ feature. Business hours, appointment length (`lib/availability.js`), and the
   `express-ejs-layouts`' `extractScripts` option silently drops inline
   `<script>` tags (no `src`) from page views; only `layout.ejs` itself is
   safe for inline scripts.
-- **Google Search Console / Analytics** - set `GOOGLE_SITE_VERIFICATION` (the
-  HTML-tag verification value) and/or `GA_MEASUREMENT_ID` (`G-XXXXXXX`) in
-  `.env` to enable them; both are no-ops when unset.
+- **Google Search Console / Tag Manager** - set `GOOGLE_SITE_VERIFICATION`
+  (the HTML-tag verification value) and/or `GTM_CONTAINER_ID` (`GTM-XXXXXXX`)
+  in `.env` to enable them; both are no-ops when unset. GA4 is configured as
+  a tag *inside* the Tag Manager container (not embedded separately in code)
+  to avoid double-counting pageviews.
 - `/sitemap.xml` and `/robots.txt` are generated dynamically in
   `routes/index.js`, not static files.
 
