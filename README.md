@@ -148,6 +148,13 @@ feature. Business hours, appointment length (`lib/availability.js`), and the
   any image, run `node scripts/convert-images-to-webp.js`** to regenerate
   the `.webp` twin - it isn't automatic. `sharp` (used only by that script)
   is a devDependency, not needed at runtime.
+- **Compressed hero video** - `public/assets/video/hero.mp4` (the
+  autoplaying, muted homepage background loop) is re-encoded at CRF 30
+  (3.09MB -> 0.92MB, no visible quality loss at the size/dimming it's
+  actually displayed at). **After replacing the footage, run
+  `node scripts/compress-hero-video.js path/to/new-footage.mp4`** rather
+  than dropping the raw export straight in. `ffmpeg-static` (used only by
+  that script) is a devDependency, not needed at runtime.
 
 ## Accessibility & motion
 
