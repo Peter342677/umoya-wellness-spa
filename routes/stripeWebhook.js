@@ -76,9 +76,10 @@ router.post('/webhooks/stripe', async (req, res) => {
     if (booking.slotStart && booking.slotEnd) {
       try {
         await createAppointmentEvent({
-          summary: `${booking.serviceName} - ${booking.name}`,
+          summary: `Umoya Wellness Spa - ${booking.serviceName} - ${booking.name}`,
           description:
-            `Booked via website - $${booking.depositPaid} deposit paid.\n\n` +
+            `Umoya Wellness Spa booking - $${booking.depositPaid} deposit paid online.\n\n` +
+            `Service: ${booking.serviceName}\n` +
             `Client: ${booking.name}\n` +
             `Email: ${booking.email}\n` +
             `Phone: ${booking.phone}\n` +
