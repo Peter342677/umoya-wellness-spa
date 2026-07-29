@@ -10,7 +10,7 @@ const concierge = require('../data/concierge');
 
 router.get('/', (req, res) => {
   res.render('pages/home', {
-    pageTitle: 'Umoya Wellness Spa | Body Contouring & Medical Wellness in South Salt Lake',
+    pageTitle: 'Umoya Wellness Spa | Med Spa in South Salt Lake, UT',
     pageDescription:
       'A sanctuary of rest, renewal, and radiance. RN-led body contouring, medical wellness, and aesthetic treatments in South Salt Lake, Utah.',
     services: services.filter((s) => s.flagship).concat(services.filter((s) => !s.flagship)).slice(0, 4),
@@ -43,6 +43,17 @@ router.get('/learn-more', (req, res) => {
     pageDescription: 'Educational resources on body contouring, medical wellness, and what to expect at Umoya.',
     faq,
     services,
+    structuredData: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
+      },
+    ],
   });
 });
 
@@ -63,23 +74,28 @@ router.get('/concierge-healthcare', (req, res) => {
   });
 });
 
+// Bump this when site content meaningfully changes - applied to every
+// sitemap entry as a single, honest "last updated" signal rather than
+// stamping the current request date (which would falsely claim daily changes).
+const SITE_LAST_UPDATED = '2026-07-29';
+
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/concierge-healthcare', '/contact'];
+  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/concierge-healthcare', '/contact', '/book'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const all = [...staticRoutes, ...serviceRoutes];
 
   res.type('application/xml');
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${all.map((p) => `  <url><loc>${base}${p}</loc></url>`).join('\n')}
+${all.map((p) => `  <url><loc>${base}${p}</loc><lastmod>${SITE_LAST_UPDATED}</lastmod></url>`).join('\n')}
 </urlset>`);
 });
 
 router.get('/robots.txt', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
   res.type('text/plain');
-  res.send(`User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
+  res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /book/success\nSitemap: ${base}/sitemap.xml\n`);
 });
 
 module.exports = router;

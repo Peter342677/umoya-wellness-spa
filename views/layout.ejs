@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= typeof pageTitle !== 'undefined' ? pageTitle : site.brand.name %></title>
   <meta name="description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : '' %>" />
+  <% if (typeof googleSiteVerification !== 'undefined' && googleSiteVerification) { %>
+    <meta name="google-site-verification" content="<%= googleSiteVerification %>" />
+  <% } %>
+  <% if (typeof gaMeasurementId !== 'undefined' && gaMeasurementId) { %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaMeasurementId %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<%= gaMeasurementId %>');
+    </script>
+  <% } %>
 
   <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : site.brand.name %>" />
   <meta property="og:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : '' %>" />
@@ -12,6 +24,43 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="<%= canonicalUrl %>" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : site.brand.name %>" />
+  <meta name="twitter:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : '' %>" />
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '/assets/images/hero/hero-bg.jpg' %>" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "<%= site.brand.name %>",
+    "image": "<%= siteOrigin %>/assets/images/hero/hero-bg.jpg",
+    "telephone": "+13852829074",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2253 S State St Ste #7",
+      "addressLocality": "South Salt Lake",
+      "addressRegion": "UT",
+      "postalCode": "84115",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "11:00",
+        "closes": "16:00"
+      }
+    ],
+    "sameAs": ["<%= site.social.instagram %>"],
+    "url": "<%= siteOrigin %>/"
+  }
+  </script>
+  <% if (typeof structuredData !== 'undefined' && structuredData && structuredData.length) { %>
+    <% structuredData.forEach(function (obj) { %>
+      <script type="application/ld+json"><%- JSON.stringify(obj).replace(/</g, '\\u003c') %></script>
+    <% }) %>
+  <% } %>
 
   <link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/assets/logo/favicon.svg" />

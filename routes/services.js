@@ -38,11 +38,33 @@ router.get('/:slug', (req, res, next) => {
 
   const otherServices = services.filter((s) => s.slug !== service.slug && s.category === service.category).slice(0, 3);
 
+  const fullService = { ...service, faq: [...(service.faq || []), pricingFaqEntry()] };
+
   res.render('pages/service-detail', {
     pageTitle: `${service.name} | Umoya Wellness Spa`,
     pageDescription: service.pitch,
-    service: { ...service, faq: [...(service.faq || []), pricingFaqEntry()] },
+    ogImage: service.heroImage,
+    service: fullService,
     otherServices,
+    structuredData: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: service.name,
+        provider: { '@type': 'MedicalBusiness', name: site.brand.name },
+        areaServed: 'South Salt Lake, UT',
+        description: service.pitch,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: fullService.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
+      },
+    ],
   });
 });
 

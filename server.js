@@ -10,6 +10,11 @@ const morgan = require('morgan');
 const app = express();
 const PORT = process.env.PORT || 3070;
 
+// Hostinger's proxy terminates TLS and forwards over plain HTTP, so without
+// this, req.protocol always reads "http" - breaking the canonical tag,
+// sitemap, robots.txt, and og:url, which all derive the site's base URL from it.
+app.set('trust proxy', 1);
+
 // ---------- View engine ----------
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,6 +32,24 @@ app.use(
 app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
+// Consolidates the site onto a single canonical host/URL shape so search
+// engines don't split ranking signals between www/non-www or a trailing
+// slash and its non-slash equivalent.
+app.use((req, res, next) => {
+  const host = req.hostname;
+  const hasTrailingSlash = req.path.length > 1 && req.path.endsWith('/');
+
+  if (host === 'myumoyaspa.com') {
+    const target = `https://www.myumoyaspa.com${req.originalUrl}`;
+    return res.redirect(301, target);
+  }
+  if (hasTrailingSlash) {
+    const target = req.path.slice(0, -1) + (req.originalUrl.slice(req.path.length) || '');
+    return res.redirect(301, target);
+  }
+  next();
+});
+
 // Stripe webhook signature verification needs the exact raw request bytes,
 // so it must be mounted with express.raw() before the global JSON/urlencoded
 // parsers below consume the body.
@@ -42,11 +65,18 @@ const site = require('./data/site');
 app.use((req, res, next) => {
   res.locals.site = site;
   res.locals.currentPath = req.path;
-  res.locals.canonicalUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  // Built from req.path (not req.originalUrl) so tracking/query params like
+  // ?utm_source=... don't produce a different "canonical" URL per visit.
+  res.locals.canonicalUrl = `${req.protocol}://${req.get('host')}${req.path}`;
+  res.locals.siteOrigin = `${req.protocol}://${req.get('host')}`;
   res.locals.pageTitle = site.brand.name;
   res.locals.pageDescription =
     'A sanctuary of rest, renewal, and radiance. RN-led body contouring and medical wellness in South Salt Lake, Utah.';
   res.locals.ogImage = '/assets/images/hero/hero-bg.jpg';
+  // Set once real IDs are available - see .env.example. Layout only emits
+  // the corresponding tags/scripts when these are present.
+  res.locals.gaMeasurementId = process.env.GA_MEASUREMENT_ID || '';
+  res.locals.googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || '';
   next();
 });
 

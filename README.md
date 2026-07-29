@@ -105,6 +105,29 @@ and no events are created - nothing breaks, it just loses the live-availability
 feature. Business hours, appointment length (`lib/availability.js`), and the
 14-day booking window are all adjustable constants in that file.
 
+## SEO
+
+- **Canonical host/protocol** - `app.set('trust proxy', 1)` in `server.js` makes
+  Express read Hostinger's `X-Forwarded-Proto` header, so the canonical tag,
+  sitemap, robots.txt, and `og:url` all correctly resolve to `https://`
+  instead of `http://`. A redirect middleware (also in `server.js`) 301s
+  `myumoyaspa.com` → `www.myumoyaspa.com` and strips trailing slashes, so the
+  site has exactly one canonical URL per page.
+- **Structured data** - a site-wide `MedicalBusiness` JSON-LD block lives in
+  `views/layout.ejs`. Per-page schema (currently `Service` + `FAQPage` on
+  `/services/:slug`, `FAQPage` on `/learn-more`) is passed as a
+  `structuredData` array from the route (see `routes/services.js`,
+  `routes/index.js`) and rendered by the same block in `layout.ejs`. **Don't
+  put `<script>` JSON-LD directly in a `views/pages/*.ejs` file** -
+  `express-ejs-layouts`' `extractScripts` option silently drops inline
+  `<script>` tags (no `src`) from page views; only `layout.ejs` itself is
+  safe for inline scripts.
+- **Google Search Console / Analytics** - set `GOOGLE_SITE_VERIFICATION` (the
+  HTML-tag verification value) and/or `GA_MEASUREMENT_ID` (`G-XXXXXXX`) in
+  `.env` to enable them; both are no-ops when unset.
+- `/sitemap.xml` and `/robots.txt` are generated dynamically in
+  `routes/index.js`, not static files.
+
 ## Accessibility & motion
 
 - `prefers-reduced-motion` disables the cursor, mist effect, preloader, page
