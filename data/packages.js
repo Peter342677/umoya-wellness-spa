@@ -31,7 +31,7 @@ module.exports = [
     name: 'Monthly Wellness Membership',
     tagline: 'Ongoing medical wellness support, built around your goals.',
     description:
-      'For clients on a GLP-3 or peptide protocol, this membership bundles your monthly clinical check-ins, dosing, and adjustments into one ongoing plan of care.',
+      'For clients on a GLP-1 or peptide protocol, this membership bundles your monthly clinical check-ins, dosing, and adjustments into one ongoing plan of care.',
     includes: ['Monthly RN check-in and protocol review', 'Dosing and adjustments as needed', 'Priority scheduling'],
   },
 ];

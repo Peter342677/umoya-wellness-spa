@@ -47,14 +47,14 @@ const services = [
     ],
   },
   {
-    slug: 'glp3-weight-loss',
+    slug: 'glp1-weight-loss',
     category: 'Medical Wellness',
-    name: 'GLP-3 Weight Loss',
+    name: 'GLP-1 Weight Loss',
     shortName: 'Weight Loss',
     tagline: 'Clinically supervised peptide protocol for sustainable weight management.',
     pitch:
-      'Our clinically supervised GLP-3 peptide protocol supports appetite regulation and metabolic health under the direct oversight of an RN. A medically guided, honest approach to sustainable weight management, not a quick fix.',
-    heroImage: '/assets/images/services/glp3-weight-loss.jpg',
+      'Our clinically supervised GLP-1 peptide protocol supports appetite regulation and metabolic health under the direct oversight of an RN. A medically guided, honest approach to sustainable weight management, not a quick fix.',
+    heroImage: '/assets/images/services/glp1-weight-loss.jpg',
     included: [
       'In-depth intake and health history review with Cheryl, RN',
       'Personalized dosing protocol with ongoing clinical supervision',

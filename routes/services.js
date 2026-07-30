@@ -36,6 +36,10 @@ router.get('/', (req, res) => {
   });
 });
 
+// GLP-1 is the established clinical term (GLP-3 is not a real drug class) -
+// redirect the old slug so any already-indexed/bookmarked link still resolves.
+router.get('/glp3-weight-loss', (req, res) => res.redirect(301, '/services/glp1-weight-loss'));
+
 router.get('/:slug', (req, res, next) => {
   const service = services.find((s) => s.slug === req.params.slug);
   if (!service) return next();
