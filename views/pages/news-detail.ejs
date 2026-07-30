@@ -1,0 +1,68 @@
+<% var d = new Date(article.date);
+   var formatted = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); %>
+
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real spa photography -->
+    <picture>
+      <source srcset="/assets/images/news/news-hero.webp" type="image/webp" />
+      <img src="/assets/images/news/news-hero.jpg" alt="" loading="eager" />
+    </picture>
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="eyebrow hero__eyebrow" data-reveal="fade"><%= formatted %></span>
+      <h1 class="hero__title" data-split-text="immediate" style="font-size: var(--fs-h2);"><%= article.title %></h1>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/breadcrumbs', { crumbs: breadcrumbs }) %>
+
+<!-- ============ ARTICLE BODY ============ -->
+<section class="section section--light">
+  <div class="container" style="max-width: 68ch;">
+    <div data-reveal>
+      <% article.body.forEach(function(paragraph) { %>
+        <p class="text-muted" style="margin-bottom:1.4rem; font-size:1.05rem; line-height:1.75;"><%= paragraph %></p>
+      <% }) %>
+    </div>
+    <div class="hero__ctas" style="margin-top:2.2rem;">
+      <a href="/book" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
+      <a href="/contact" class="link-underline" data-cursor="view">Or send us a message</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MORE FROM THE JOURNAL ============ -->
+<% if (otherArticles && otherArticles.length) { %>
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Keep Reading</span>
+      <h2 class="heading-lg">More From The Journal</h2>
+    </div>
+    <div class="card-grid" data-reveal-group>
+      <% otherArticles.forEach(function(a) { %>
+        <a href="/news/<%= a.slug %>" class="text-card" data-cursor="view">
+          <h3 class="text-card__title"><%= a.title %></h3>
+          <p class="text-card__text"><%= a.excerpt %></p>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-band cta-band--final">
+  <div class="container cta-band__content" data-reveal>
+    <span class="eyebrow">Ready When You Are</span>
+    <h2 class="heading-lg cta-band__title">Begin with a conversation, <em>not a commitment.</em></h2>
+    <div class="hero__ctas" style="justify-content:center;">
+      <a href="/book" class="btn btn--primary btn--magnetic" data-cursor="book">Book Now</a>
+      <a href="/news" class="link-underline" data-cursor="view">Back to the Journal</a>
+    </div>
+  </div>
+</section>

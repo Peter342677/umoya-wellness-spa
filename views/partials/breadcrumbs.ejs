@@ -1,0 +1,16 @@
+<% /* Expects `crumbs`: array of { name, url } for everything after Home. Last item renders as plain text (current page). */ %>
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="container">
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item"><a href="/">Home</a></li>
+      <% crumbs.forEach(function(c, i) { %>
+        <li class="breadcrumbs__sep" aria-hidden="true">/</li>
+        <% if (i === crumbs.length - 1) { %>
+          <li class="breadcrumbs__item is-current" aria-current="page"><%= c.name %></li>
+        <% } else { %>
+          <li class="breadcrumbs__item"><a href="<%= c.url %>"><%= c.name %></a></li>
+        <% } %>
+      <% }) %>
+    </ol>
+  </div>
+</nav>

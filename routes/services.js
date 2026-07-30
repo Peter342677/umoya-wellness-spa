@@ -3,6 +3,7 @@ const router = express.Router();
 
 const services = require('../data/services');
 const site = require('../data/site');
+const { breadcrumbList } = require('../lib/breadcrumbs');
 
 function pricingFaqEntry() {
   return {
@@ -24,11 +25,14 @@ router.get('/', (req, res) => {
     grouped[cat] = services.filter((s) => s.category === cat);
   });
 
+  const crumbs = [{ name: 'Services', url: '/services' }];
   res.render('pages/services-hub', {
     pageTitle: 'Our Services | Umoya Wellness Spa',
     pageDescription:
       'Body contouring, medical wellness, and aesthetic treatments. Explore every service Umoya Wellness Spa offers.',
     grouped,
+    breadcrumbs: crumbs,
+    structuredData: [breadcrumbList(res.locals.siteOrigin, crumbs)],
   });
 });
 
@@ -39,6 +43,10 @@ router.get('/:slug', (req, res, next) => {
   const otherServices = services.filter((s) => s.slug !== service.slug && s.category === service.category).slice(0, 3);
 
   const fullService = { ...service, faq: [...(service.faq || []), pricingFaqEntry()] };
+  const crumbs = [
+    { name: 'Services', url: '/services' },
+    { name: service.name, url: `/services/${service.slug}` },
+  ];
 
   res.render('pages/service-detail', {
     pageTitle: `${service.name} | Umoya Wellness Spa`,
@@ -46,6 +54,7 @@ router.get('/:slug', (req, res, next) => {
     ogImage: service.heroImage,
     service: fullService,
     otherServices,
+    breadcrumbs: crumbs,
     structuredData: [
       {
         '@context': 'https://schema.org',
@@ -64,6 +73,7 @@ router.get('/:slug', (req, res, next) => {
           acceptedAnswer: { '@type': 'Answer', text: item.a },
         })),
       },
+      breadcrumbList(res.locals.siteOrigin, crumbs),
     ],
   });
 });

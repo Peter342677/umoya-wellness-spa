@@ -114,14 +114,27 @@ feature. Business hours, appointment length (`lib/availability.js`), and the
   `myumoyaspa.com` → `www.myumoyaspa.com` and strips trailing slashes, so the
   site has exactly one canonical URL per page.
 - **Structured data** - a site-wide `MedicalBusiness` JSON-LD block lives in
-  `views/layout.ejs`. Per-page schema (currently `Service` + `FAQPage` on
-  `/services/:slug`, `FAQPage` on `/learn-more`) is passed as a
+  `views/layout.ejs`. Per-page schema (`Service` + `FAQPage` on
+  `/services/:slug`, `FAQPage` on `/learn-more`, `BlogPosting` on
+  `/news/:slug`, `BreadcrumbList` on every secondary page) is passed as a
   `structuredData` array from the route (see `routes/services.js`,
   `routes/index.js`) and rendered by the same block in `layout.ejs`. **Don't
   put `<script>` JSON-LD directly in a `views/pages/*.ejs` file** -
   `express-ejs-layouts`' `extractScripts` option silently drops inline
   `<script>` tags (no `src`) from page views; only `layout.ejs` itself is
   safe for inline scripts.
+- **Breadcrumbs** - `views/partials/breadcrumbs.ejs` renders the visible trail
+  and `lib/breadcrumbs.js#breadcrumbList()` builds the matching
+  `BreadcrumbList` JSON-LD from the same `{ name, url }` array (a route passes
+  `breadcrumbs` as a view local, then feeds the same array into
+  `breadcrumbList(res.locals.siteOrigin, crumbs)` inside `structuredData`).
+  Wired into every secondary page except `/book` (kept breadcrumb-free as a
+  conversion funnel).
+- **News detail pages** - `/news/:slug` (`routes/index.js`, `views/pages/
+  news-detail.ejs`) gives each `data/news.js` entry a real permalink with full
+  body copy, replacing the old index-only cards. Add a new article by adding
+  a `{ slug, title, date, excerpt, body: [...] }` entry; no new route/view
+  needed.
 - **Google Search Console / Tag Manager** - set `GOOGLE_SITE_VERIFICATION`
   (the HTML-tag verification value) and/or `GTM_CONTAINER_ID` (`GTM-XXXXXXX`)
   in `.env` to enable them; both are no-ops when unset. GA4 is configured as

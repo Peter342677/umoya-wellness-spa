@@ -16,6 +16,8 @@
   </div>
 </section>
 
+<%- include('../partials/breadcrumbs', { crumbs: breadcrumbs }) %>
+
 <!-- ============ ARTICLES ============ -->
 <section class="section section--dark">
   <div class="container">
@@ -24,11 +26,11 @@
         var d = new Date(article.date);
         var formatted = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       %>
-        <article class="news-card">
+        <a href="/news/<%= article.slug %>" class="news-card" data-cursor="view">
           <p class="news-card__date"><%= formatted %></p>
           <h2 class="news-card__title"><%= article.title %></h2>
           <p class="news-card__excerpt"><%= article.excerpt %></p>
-        </article>
+        </a>
       <% }) %>
     </div>
   </div>

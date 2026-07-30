@@ -3,15 +3,19 @@ const router = express.Router();
 const path = require('path');
 
 const { sendNotification } = require('../lib/mailer');
+const { breadcrumbList } = require('../lib/breadcrumbs');
 
 const SUBMISSIONS_FILE = path.join(__dirname, '..', 'data', 'submissions', 'submissions.json');
 const TO_ADDRESS = process.env.CONTACT_TO_EMAIL || 'umoyahelp@gmail.com';
 
 router.get('/contact', (req, res) => {
+  const crumbs = [{ name: 'Contact', url: '/contact' }];
   res.render('pages/contact', {
     pageTitle: 'Contact | Umoya Wellness Spa',
     pageDescription:
       'Visit Umoya Wellness Spa in South Salt Lake, Utah, or send us a message. We typically respond within one business day.',
+    breadcrumbs: crumbs,
+    structuredData: [breadcrumbList(res.locals.siteOrigin, crumbs)],
   });
 });
 
