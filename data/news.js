@@ -10,7 +10,7 @@ module.exports = [
       'Umoya Wellness Spa has officially opened its doors at 2253 S State St in South Salt Lake, bringing a registered-nurse-led approach to body contouring, medical weight loss, and aesthetic treatments to the Salt Lake Valley.',
       'The practice is led by founder Cheryl Johnson, RN-BSN-FAACM, a Fellow of the American Academy of Comprehensive Medicine, who built Umoya around a simple idea: clients make better decisions when they are not rushed. Every relationship at Umoya begins with a consultation, not a treatment, so the plan a client walks away with is genuinely built for them rather than sold to them.',
       'The name Umoya is a Zulu word meaning air, breath, and spirit. It reflects the practice\'s philosophy of unhurried, honest care in a space designed for calm rather than clinical coldness, while still holding to the clinical rigor of RN-supervised treatment.',
-      'Umoya\'s opening lineup includes T-Shape 2 body contouring, RN-supervised medical weight-loss protocols, injectables and aesthetic treatments, and peptide therapy, with concierge healthcare membership options also available. Appointments are available Wednesday through Saturday, and every service is performed or overseen by a registered nurse.',
+      'Umoya\'s opening lineup includes T-Shape 2 body contouring, RN-guided weight-loss support, aesthetic treatments, and peptide therapy, with concierge healthcare membership options also available. Appointments are available Wednesday through Saturday, and every service is performed or overseen by a registered nurse.',
     ],
   },
   {
@@ -27,16 +27,16 @@ module.exports = [
     ],
   },
   {
-    slug: 'understanding-medically-supervised-weight-loss',
-    title: 'Understanding Our Medically Supervised Weight-Loss Protocol',
+    slug: 'understanding-our-thinnr-weight-loss-protocol',
+    title: 'Understanding Our THINNR Weight-Loss Protocol',
     date: '2026-05-06',
     excerpt:
-      'RN-BSN-FAACM Cheryl Johnson breaks down how our supervised weight-loss protocol works, who it\'s right for, and why medical oversight matters.',
+      'RN-BSN-FAACM Cheryl Johnson breaks down how our THINNR protocol works, who it\'s right for, and why guided support still matters with an OTC program.',
     body: [
-      'Medical weight loss has become one of the most requested services in aesthetic medicine, and also one of the most misunderstood. At Umoya, every weight-loss protocol is supervised directly by Cheryl Johnson, RN-BSN-FAACM, because these are prescription-grade interventions that deserve the same clinical oversight as any other medical treatment.',
-      'The process starts with a full consultation covering medical history, current medications, and individual goals. Medical weight-loss medications are not a one-size-fits-all solution, and part of Cheryl\'s role is being honest about whether a client is a good candidate before any protocol begins.',
-      'Ongoing supervision means regular check-ins to monitor progress, adjust dosing where appropriate, and watch for side effects, rather than a one-time prescription handed off without follow-up. That oversight is what separates a medically supervised protocol from ordering medication online without a clinician involved.',
-      'Clients considering medical weight loss at Umoya can expect the same consultation-first standard applied to every service here: an honest conversation about whether this is the right path, followed by a plan built around their specific health picture.',
+      'Weight loss has become one of the most requested services in aesthetic medicine, and also one of the most misunderstood. At Umoya, we offer THINNR: an over-the-counter, homeopathic protocol that pairs oral drops with a structured, low-glycemic nutrition plan, no injections or prescriptions involved.',
+      'Because THINNR is available without a prescription, it can be tempting to skip guidance altogether. Cheryl Johnson, RN-BSN-FAACM, still leads every client through a full intake covering health history and goals, so the protocol is genuinely appropriate before it begins, and so the accompanying nutrition plan is realistic for that client\'s life.',
+      'Ongoing check-ins mean progress gets monitored and the plan gets adjusted along the way, rather than handing someone a product and sending them off alone. That guidance is what separates a supported protocol from picking up THINNR with no one to ask questions along the way.',
+      'Clients considering THINNR at Umoya can expect the same consultation-first standard applied to every service here: an honest conversation about whether this is the right path, followed by a plan built around their specific goals.',
     ],
   },
   {
@@ -50,7 +50,7 @@ module.exports = [
       'First: who is performing or supervising the treatment? Ask specifically whether a registered nurse or physician is involved, and in what capacity. At Umoya, every treatment is performed or overseen by an RN, which is a meaningful distinction from practices where technicians work without direct clinical supervision.',
       'Second: does the consultation feel like a conversation or a sales pitch? A practice that takes the time to understand your history and goals before recommending anything is operating differently than one that leads with a package price.',
       'Third: will they tell you if a treatment isn\'t right for you? An honest practice should be willing to say no, or to suggest a different path, rather than selling every client the same popular service.',
-      'Fourth: what does aftercare and follow-up actually look like? Especially for medical weight loss or injectables, ongoing supervision matters more than the initial appointment.',
+      'Fourth: what does aftercare and follow-up actually look like? Especially for weight-loss support or ongoing wellness protocols, follow-up matters more than the initial appointment.',
       'Fifth: how much time is built into your appointment? Rushed sessions are a sign of a practice optimizing for volume over outcomes. At Umoya, appointments are booked with breathing room specifically so no one feels like a slot on a schedule.',
     ],
   },

@@ -47,24 +47,24 @@ const services = [
     ],
   },
   {
-    slug: 'glp1-weight-loss',
+    slug: 'thinnr-weight-loss',
     category: 'Medical Wellness',
-    name: 'GLP-1 Weight Loss',
+    name: 'THINNR Weight Loss',
     shortName: 'Weight Loss',
-    tagline: 'Clinically supervised peptide protocol for sustainable weight management.',
+    tagline: 'A homeopathic, drop-based weight-loss protocol - no needles required.',
     pitch:
-      'Our clinically supervised GLP-1 peptide protocol supports appetite regulation and metabolic health under the direct oversight of an RN. A medically guided, honest approach to sustainable weight management, not a quick fix.',
-    heroImage: '/assets/images/services/glp1-weight-loss.jpg',
+      'THINNR pairs an OTC homeopathic protocol with a structured, low-glycemic nutrition plan, guided by Cheryl at every step. Oral drops instead of injections, with an honest, RN-guided approach to sustainable weight management, not a quick fix.',
+    heroImage: '/assets/images/services/thinnr-weight-loss.jpg',
     included: [
       'In-depth intake and health history review with Cheryl, RN',
-      'Personalized dosing protocol with ongoing clinical supervision',
+      'Personalized THINNR protocol across its four guided phases',
+      'Structured, low-glycemic nutrition guidance alongside your drops',
       'Regular check-ins to monitor progress and adjust your plan',
-      'Nutrition and lifestyle guidance alongside your protocol',
       'Honest expectation-setting with no rushed appointments and no guesswork',
     ],
     faq: [
-      { q: 'Is this protocol medically supervised?', a: 'Yes. Every client is evaluated and monitored by Cheryl Johnson, RN-BSN-FAACM, throughout the entire protocol.' },
-      { q: 'How is this different from other weight-loss programs?', a: 'This is a clinical protocol grounded in your individual health history, not a one-size-fits-all program. Your plan is built and adjusted around your bloodwork, goals, and response.' },
+      { q: 'Is this an injectable weight-loss medication?', a: 'No. THINNR is an OTC homeopathic protocol taken as oral drops, not an injection or prescription medication.' },
+      { q: 'Do I need a prescription?', a: 'No prescription is required. Cheryl still guides your intake and check-ins so the protocol is appropriate for you and your goals.' },
       { q: 'Will I need an initial consultation?', a: 'Yes, a full consultation is required before starting so we can confirm the protocol is appropriate for you.' },
     ],
   },
@@ -129,27 +129,6 @@ const services = [
     faq: [
       { q: 'What are peptides used for?', a: 'Common goals include recovery and healing, energy and metabolism, sleep quality, and general anti-aging support. We’ll match a protocol to your specific goal.' },
       { q: 'Do I need bloodwork first?', a: 'In many cases, yes. Cheryl will let you know what’s needed at your consultation to build a protocol that’s appropriate for you.' },
-    ],
-  },
-  {
-    slug: 'botox',
-    category: 'Aesthetics',
-    name: 'Botox & Injectables',
-    shortName: 'Botox',
-    tagline: 'Subtle, natural-looking results from an experienced RN injector.',
-    pitch:
-      'Administered by an experienced RN injector, our Botox and injectable treatments soften fine lines and refresh your look with a light, natural hand. Never overdone.',
-    heroImage: '/assets/images/services/botox.jpg',
-    included: [
-      'In-depth facial assessment and consultation',
-      'Precision injection technique for a natural result',
-      'Treatment areas: forehead, glabella, crow’s feet, and more',
-      'Honest guidance on what will and won’t achieve your goal',
-      'Follow-up check available to confirm your results',
-    ],
-    faq: [
-      { q: 'Will my results look natural?', a: 'Yes. Our approach favors subtle, natural movement over a "frozen" look. We’ll walk through your goals together before any injection.' },
-      { q: 'How long do results last?', a: 'Typically 3-4 months, though this varies by individual and treatment area.' },
     ],
   },
 ];

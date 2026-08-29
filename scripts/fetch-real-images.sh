@@ -17,15 +17,14 @@ declare -A WIDE=(
 )
 
 # Service images verified by eye to match their subject (cavitation device,
-# facial treatment, scale, syringe, smile, vial, botox injection, smoke).
+# facial treatment, scale, syringe, smile, vial).
 declare -A PORTRAIT=(
   [public/assets/images/services/t-shape-2.jpg]="photo-1761819922058-d15028ed9817"
   [public/assets/images/services/face-contouring.jpg]="photo-1643684391140-c5056cfd3436"
-  [public/assets/images/services/glp1-weight-loss.jpg]="photo-1522844990619-4951c40f7eda"
+  [public/assets/images/services/thinnr-weight-loss.jpg]="photo-1522844990619-4951c40f7eda"
   [public/assets/images/services/glutathione.jpg]="photo-1746017090180-ebb14a589639"
   [public/assets/images/services/teeth-whitening.jpg]="photo-1654373535457-383a0a4d00f9"
   [public/assets/images/services/peptides.jpg]="photo-1579165466741-7f35e4755660"
-  [public/assets/images/services/botox.jpg]="photo-1746708810803-722593e53772"
   # NOTE: about/founder.jpg is Cheryl's REAL photo (client-supplied) - deliberately
   # not listed here so re-running this script never overwrites it with stock.
   [public/assets/images/about/meaning.jpg]="photo-1613750255797-7d4f877615df"

@@ -9,7 +9,7 @@ module.exports = [
   },
   {
     q: 'Is there any downtime after treatments?',
-    a: 'Most of our signature services, including T-Shape 2 body contouring and face contouring, have zero downtime. Medical wellness protocols like GLP-1 and peptide therapy are non-invasive and require no recovery period.',
+    a: 'Most of our signature services, including T-Shape 2 body contouring and face contouring, have zero downtime. Medical wellness protocols like THINNR and peptide therapy are non-invasive and require no recovery period.',
   },
   {
     q: 'How do I book an appointment?',

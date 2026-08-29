@@ -78,6 +78,12 @@ router.get('/news', (req, res) => {
   });
 });
 
+// The weight-loss article was rewritten around THINNR (previously described a
+// prescription-style protocol) - redirect the old slug so it still resolves.
+router.get('/news/understanding-medically-supervised-weight-loss', (req, res) =>
+  res.redirect(301, '/news/understanding-our-thinnr-weight-loss-protocol')
+);
+
 router.get('/news/:slug', (req, res, next) => {
   const article = news.find((a) => a.slug === req.params.slug);
   if (!article) return next();

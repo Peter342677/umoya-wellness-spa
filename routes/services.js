@@ -36,9 +36,15 @@ router.get('/', (req, res) => {
   });
 });
 
-// GLP-1 is the established clinical term (GLP-3 is not a real drug class) -
-// redirect the old slug so any already-indexed/bookmarked link still resolves.
-router.get('/glp3-weight-loss', (req, res) => res.redirect(301, '/services/glp1-weight-loss'));
+// The weight-loss service moved from an injectable GLP-1 peptide protocol to
+// the OTC homeopathic THINNR protocol - redirect every prior slug straight to
+// the current one so already-indexed/bookmarked links still resolve.
+router.get('/glp3-weight-loss', (req, res) => res.redirect(301, '/services/thinnr-weight-loss'));
+router.get('/glp1-weight-loss', (req, res) => res.redirect(301, '/services/thinnr-weight-loss'));
+
+// Botox & Injectables was discontinued (Umoya no longer offers injectables) -
+// send any existing link to the services hub rather than 404ing.
+router.get('/botox', (req, res) => res.redirect(301, '/services'));
 
 router.get('/:slug', (req, res, next) => {
   const service = services.find((s) => s.slug === req.params.slug);
