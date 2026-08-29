@@ -69,27 +69,6 @@ const services = [
     ],
   },
   {
-    slug: 'glutathione-injections',
-    category: 'Medical Wellness',
-    name: 'Glutathione Injections',
-    shortName: 'Glutathione',
-    tagline: 'The master antioxidant, for brighter skin and full-body detox support.',
-    pitch:
-      'Glutathione is the body’s master antioxidant. Our injections support cellular detoxification, immune health, and a brighter, more even-toned complexion, administered by an RN as part of a broader wellness plan.',
-    heroImage: '/assets/images/services/glutathione.jpg',
-    included: [
-      'RN consultation to confirm candidacy and goals',
-      'Precision injection of pharmaceutical-grade glutathione',
-      'Guidance on injection frequency for your goals',
-      'Support for detoxification, immune function, and skin brightness',
-      'Can be paired with other services as part of your wellness plan',
-    ],
-    faq: [
-      { q: 'What can I expect to notice?', a: 'Many clients report brighter, more even-toned skin and a general sense of improved energy over a course of injections.' },
-      { q: 'How often are injections given?', a: 'Frequency depends on your goals and is set during your consultation. Typically weekly to start, with maintenance sessions after.' },
-    ],
-  },
-  {
     slug: 'teeth-whitening',
     category: 'Aesthetics',
     name: 'Teeth Whitening',

@@ -61,8 +61,8 @@ scripts/
   `public/assets/images/...` under the same filenames (or update the paths in
   `data/services.js` and the views).
 - **Booking** - every Book Now button site-wide links to `/book`, which creates a
-  Stripe Checkout Session for the `$50` deposit set in `data/site.js`
-  (`booking.depositAmount`). Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`
+  Stripe Checkout Session for the deposit amount set in `data/site.js`
+  (`booking.depositAmount`, currently `$30`). Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`
   in `.env` to enable it; without them `/book` still renders but shows "payments
   temporarily unavailable." The webhook in `routes/stripeWebhook.js` is the
   source of truth for a paid deposit and emails a notification to
@@ -78,7 +78,7 @@ scripts/
 
 ## Google Calendar integration (live availability + auto-synced appointments)
 
-`/book` shows real open slots from Cheryl's Google Calendar and, once a $50
+`/book` shows real open slots from Cheryl's Google Calendar and, once the
 deposit is paid, writes the confirmed appointment straight onto it - no manual
 back-and-forth. This is a service-account integration (no login flow, no
 refresh tokens):

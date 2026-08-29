@@ -1,6 +1,6 @@
 // Concierge Healthcare Services - a broader primary-care membership offering
 // alongside Umoya's medspa treatments. Kept separate from data/services.js
-// (the medspa catalog) since these aren't booked through the $50 deposit /
+// (the medspa catalog) since these aren't booked through the deposit /
 // Stripe flow - inquiries route to /contact instead.
 module.exports = [
   {

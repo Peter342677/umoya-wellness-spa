@@ -16,7 +16,7 @@
         <a href="/book?service=concierge-consultation" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
         <a href="/contact" class="link-underline" data-cursor="view">Or send us a message</a>
       </div>
-      <p class="text-muted" style="margin-top:1.2rem; font-size:0.85rem;">$50 deposit to reserve &middot; call us at <a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a></p>
+      <p class="text-muted" style="margin-top:1.2rem; font-size:0.85rem;"><%= site.booking.depositAmountFormatted %> deposit to reserve &middot; call us at <a href="<%= site.contact.phoneHref %>" class="link-underline"><%= site.contact.phone %></a></p>
     </div>
   </div>
 </section>
@@ -69,7 +69,7 @@
   <div class="container cta-band__content" data-reveal>
     <span class="eyebrow">Ready to Talk?</span>
     <h2 class="heading-lg cta-band__title">Care built around <em>your whole life,</em> not just your chart.</h2>
-    <p class="cta-band__text">Reserve a consultation with a $50 deposit, or send us a message and we'll walk you through concierge membership options.</p>
+    <p class="cta-band__text">Reserve a consultation with a <%= site.booking.depositAmountFormatted %> deposit, or send us a message and we'll walk you through concierge membership options.</p>
     <div class="hero__ctas" style="justify-content:center;">
       <a href="/book?service=concierge-consultation" class="btn btn--primary btn--magnetic" data-cursor="book">Book a Consultation</a>
       <a href="/contact" class="link-underline" data-cursor="view">Contact Us</a>

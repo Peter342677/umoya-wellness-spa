@@ -1,4 +1,4 @@
-// Booking + $50 deposit flow.
+// Booking + deposit flow (amount set in data/site.js booking.depositAmount).
 // Flow: /book (form) -> POST /book (creates a Stripe Checkout Session,
 // returns its URL) -> Stripe-hosted checkout -> /book/success or /book?canceled=1.
 // The booking is only considered confirmed once the Stripe webhook fires
@@ -40,7 +40,7 @@ router.get('/book', (req, res) => {
   res.render('pages/book', {
     pageTitle: 'Book Your Appointment | Umoya Wellness Spa',
     pageDescription:
-      'Reserve your appointment at Umoya Wellness Spa with a $50 deposit. The remaining balance is paid at the time of your visit.',
+      `Reserve your appointment at Umoya Wellness Spa with a ${site.booking.depositAmountFormatted} deposit. The remaining balance is paid at the time of your visit.`,
     services,
     conciergeOption: concierge.bookingOption,
     selectedService,

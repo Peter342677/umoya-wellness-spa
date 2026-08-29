@@ -23,11 +23,11 @@ module.exports = {
     instagram: 'https://www.instagram.com/yourumoya',
     instagramHandle: '@yourumoya',
   },
-  // $50 deposit due at booking (via Stripe Checkout at /book); the remaining
+  // $30 deposit due at booking (via Stripe Checkout at /book); the remaining
   // balance is paid in person at the time of the appointment.
   booking: {
-    depositAmount: 50,
-    depositAmountFormatted: '$50',
+    depositAmount: 30,
+    depositAmountFormatted: '$30',
   },
   nav: {
     services,

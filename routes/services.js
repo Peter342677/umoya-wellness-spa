@@ -46,6 +46,10 @@ router.get('/glp1-weight-loss', (req, res) => res.redirect(301, '/services/thinn
 // send any existing link to the services hub rather than 404ing.
 router.get('/botox', (req, res) => res.redirect(301, '/services'));
 
+// Glutathione Injections was discontinued and folded into the THINNR
+// weight-loss packages - send existing links there rather than 404ing.
+router.get('/glutathione-injections', (req, res) => res.redirect(301, '/services/thinnr-weight-loss'));
+
 router.get('/:slug', (req, res, next) => {
   const service = services.find((s) => s.slug === req.params.slug);
   if (!service) return next();

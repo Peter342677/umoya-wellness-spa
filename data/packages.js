@@ -6,8 +6,8 @@ module.exports = [
     name: 'Glow Starter Detox',
     tagline: 'A first-step reset for skin, energy, and total-body radiance.',
     description:
-      'Our entry point into medical wellness: a curated first series pairing glutathione for detox and brightness with a face contouring session, designed to introduce you to the Umoya approach.',
-    includes: ['3 Glutathione Injections', '1 Face Contouring Session', 'Personalized aftercare guidance'],
+      'Our entry point into medical wellness: a curated first series pairing our THINNR weight-loss protocol with a face contouring session, designed to introduce you to the Umoya approach.',
+    includes: ['THINNR Weight-Loss Protocol', '1 Face Contouring Session', 'Personalized aftercare guidance'],
     badge: 'Most Popular',
   },
   {
@@ -23,8 +23,8 @@ module.exports = [
     name: 'Radiant Renewal',
     tagline: 'A brightening, tightening combination for face-forward results.',
     description:
-      'Face contouring and glutathione work together in this package to lift, tighten, and brighten. A favorite before events, reunions, or simply a fresh start.',
-    includes: ['3 Face Contouring Sessions', '3 Glutathione Injections', 'A finishing Teeth Whitening session'],
+      'Face contouring and our THINNR weight-loss protocol work together in this package to lift, tighten, and support lasting results. A favorite before events, reunions, or simply a fresh start.',
+    includes: ['3 Face Contouring Sessions', 'THINNR Weight-Loss Protocol', 'A finishing Teeth Whitening session'],
   },
   {
     slug: 'wellness-membership',
