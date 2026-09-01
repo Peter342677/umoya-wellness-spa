@@ -10,19 +10,13 @@ const router = express.Router();
 const { DateTime } = require('luxon');
 
 const services = require('../data/services');
-const concierge = require('../data/concierge');
 const site = require('../data/site');
 const { getAvailableSlots, BOOKING_WINDOW_DAYS, TIME_ZONE } = require('../lib/availability');
 const { isConfigured: calendarConfigured } = require('../lib/googleCalendar');
 
 const APPOINTMENT_DURATION_MINUTES = 60;
 
-// The medspa catalog plus the single Concierge Healthcare consultation
-// option - kept as one combined list so /book can validate and look up
-// either kind of appointment by slug, while data/services.js itself (used
-// by the homepage, /services hub, and the header's Services dropdown)
-// stays untouched.
-const bookableServices = [...services, concierge.bookingOption];
+const bookableServices = services;
 
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY) return null;
@@ -42,7 +36,6 @@ router.get('/book', (req, res) => {
     pageDescription:
       `Reserve your appointment at Umoya Wellness Spa with a ${site.booking.depositAmountFormatted} deposit. The remaining balance is paid at the time of your visit.`,
     services,
-    conciergeOption: concierge.bookingOption,
     selectedService,
     canceled: req.query.canceled === '1',
     stripeConfigured: !!process.env.STRIPE_SECRET_KEY,

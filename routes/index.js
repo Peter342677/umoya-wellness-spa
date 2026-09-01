@@ -6,7 +6,6 @@ const testimonials = require('../data/testimonials');
 const faq = require('../data/faq');
 const packages = require('../data/packages');
 const news = require('../data/news');
-const concierge = require('../data/concierge');
 const { breadcrumbList } = require('../lib/breadcrumbs');
 
 router.get('/', (req, res) => {
@@ -116,26 +115,18 @@ router.get('/news/:slug', (req, res, next) => {
   });
 });
 
-router.get('/concierge-healthcare', (req, res) => {
-  const crumbs = [{ name: 'Concierge Healthcare', url: '/concierge-healthcare' }];
-  res.render('pages/concierge', {
-    pageTitle: 'Concierge Healthcare Services | Umoya Wellness Spa',
-    pageDescription:
-      'Primary care, weight loss, lab services, urgent care, behavioral health, dermatology, and a prescription discount program, all in one concierge membership.',
-    concierge,
-    breadcrumbs: crumbs,
-    structuredData: [breadcrumbList(res.locals.siteOrigin, crumbs)],
-  });
-});
+// Concierge Healthcare was discontinued - send any existing link to the
+// homepage rather than 404ing.
+router.get('/concierge-healthcare', (req, res) => res.redirect(301, '/'));
 
 // Bump this when site content meaningfully changes - applied to every
 // sitemap entry as a single, honest "last updated" signal rather than
 // stamping the current request date (which would falsely claim daily changes).
-const SITE_LAST_UPDATED = '2026-07-30';
+const SITE_LAST_UPDATED = '2026-09-02';
 
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/concierge-healthcare', '/contact', '/book'];
+  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/contact', '/book'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const newsRoutes = news.map((a) => `/news/${a.slug}`);
   const all = [...staticRoutes, ...serviceRoutes, ...newsRoutes];

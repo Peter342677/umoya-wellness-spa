@@ -10,7 +10,7 @@ module.exports = [
       'Umoya Wellness Spa has officially opened its doors at 2253 S State St in South Salt Lake, bringing a registered-nurse-led approach to body contouring, medical weight loss, and aesthetic treatments to the Salt Lake Valley.',
       'The practice is led by founder Cheryl Johnson, RN-BSN-FAACM, a Fellow of the American Academy of Comprehensive Medicine, who built Umoya around a simple idea: clients make better decisions when they are not rushed. Every relationship at Umoya begins with a consultation, not a treatment, so the plan a client walks away with is genuinely built for them rather than sold to them.',
       'The name Umoya is a Zulu word meaning air, breath, and spirit. It reflects the practice\'s philosophy of unhurried, honest care in a space designed for calm rather than clinical coldness, while still holding to the clinical rigor of RN-supervised treatment.',
-      'Umoya\'s opening lineup includes T-Shape 2 body contouring, RN-guided weight-loss support, aesthetic treatments, and peptide therapy, with concierge healthcare membership options also available. Appointments are available Wednesday through Saturday, and every service is performed or overseen by a registered nurse.',
+      'Umoya\'s opening lineup includes T-Shape 2 body contouring, RN-guided weight-loss support, aesthetic treatments, and peptide therapy. Appointments are available Wednesday through Saturday, and every service is performed or overseen by a registered nurse.',
     ],
   },
   {
