@@ -1,0 +1,85 @@
+<!-- ============ HERO ============ -->
+<section class="hero hero--page">
+  <div class="hero__bg" aria-hidden="true" data-parallax>
+    <!-- PLACEHOLDER: swap for real transformation/before-after photography -->
+    <picture>
+      <source srcset="/assets/images/services/t-shape-2.webp" type="image/webp" />
+      <img src="/assets/images/services/t-shape-2.jpg" alt="" loading="eager" />
+    </picture>
+  </div>
+  <div class="container">
+    <div class="hero__content hero__content--center">
+      <span class="badge hero__eyebrow" data-reveal="fade">Healthier. Leaner. Happier.</span>
+      <h1 class="hero__title" data-split-text="immediate">6-Week Total Body <em>Transformation</em></h1>
+      <p class="hero__subhead">Real science. Real support. Real results. A medically guided program combining Zinzino, THINNR, and 5 T-Shape 2 sessions.</p>
+      <div class="hero__ctas">
+        <a href="/book?service=<%= transformation.slug %>" class="btn btn--primary btn--magnetic" data-cursor="book">Book Your Spot</a>
+        <a href="/contact" class="link-underline" data-cursor="view">Or send us a message</a>
+      </div>
+      <p class="text-muted" style="margin-top:1.2rem; font-size:0.85rem;"><%= transformation.priceFormatted %> total package &middot; <%= transformation.depositAmountFormatted %> deposit to reserve</p>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/breadcrumbs', { crumbs: breadcrumbs }) %>
+
+<!-- ============ WHAT'S INCLUDED ============ -->
+<section class="section section--light">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow">What's Included</span>
+      <h2 class="heading-lg">Three Pillars, <em>One Plan</em></h2>
+    </div>
+    <div class="card-grid" data-reveal-group>
+      <% transformation.includes.forEach(function(item) { %>
+        <div class="text-card">
+          <h3 class="text-card__title"><%= item.title %></h3>
+          <p class="text-card__text"><%= item.text %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3-STEP PROCESS ============ -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow">How It Works</span>
+      <h2 class="heading-lg">Simple, <em>Medically Guided</em> Weight Loss</h2>
+    </div>
+    <div class="info-tiles" data-reveal-group>
+      <% transformation.steps.forEach(function(step, i) { %>
+        <div class="info-tile">
+          <div class="info-tile__icon" aria-hidden="true" style="font-family: var(--font-display); font-size: 1.3rem;"><%= i + 1 %></div>
+          <p class="info-tile__label"><%= step.label %></p>
+          <p class="info-tile__value"><%= step.text %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHTS ============ -->
+<section class="section section--light">
+  <div class="container">
+    <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center;" data-reveal>
+      <% transformation.highlights.forEach(function(h) { %>
+        <span class="badge"><%= h %></span>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="cta-band cta-band--final">
+  <div class="container cta-band__content" data-reveal>
+    <span class="eyebrow">Ready to Start?</span>
+    <h2 class="heading-lg cta-band__title">Your transformation, <em>medically guided.</em></h2>
+    <p class="cta-band__text"><%= transformation.priceFormatted %> total package &middot; reserve with a <%= transformation.depositAmountFormatted %> deposit. <%= transformation.financingNote %></p>
+    <div class="hero__ctas" style="justify-content:center;">
+      <a href="/book?service=<%= transformation.slug %>" class="btn btn--primary btn--magnetic" data-cursor="book">Book Your Spot</a>
+      <a href="/contact" class="link-underline" data-cursor="view">Contact Us</a>
+    </div>
+  </div>
+</section>

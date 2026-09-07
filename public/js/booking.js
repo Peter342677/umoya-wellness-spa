@@ -8,6 +8,31 @@
 
   var status = form.querySelector('.form-status');
   var submitBtn = form.querySelector('[type="submit"]');
+  var submitBtnDefaultHTML = submitBtn ? submitBtn.innerHTML : '';
+
+  /* Some services (e.g. the 6-Week Transformation package) carry a
+     different deposit than the site-wide default - each <option> declares
+     its own via data-deposit, and every .js-deposit-amount span on the page
+     updates to match whenever the selected service changes. */
+  var serviceSelect = document.getElementById('bk-service');
+  var defaultDeposit = form.getAttribute('data-default-deposit');
+
+  function updateDepositDisplay() {
+    if (!serviceSelect) return;
+    var selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+    var amount = (selectedOption && selectedOption.getAttribute('data-deposit')) || defaultDeposit;
+    // Re-queried each call (not cached) since submit-error recovery replaces
+    // the button's innerHTML, which would otherwise detach a cached node.
+    var depositAmountEls = document.querySelectorAll('.js-deposit-amount');
+    for (var i = 0; i < depositAmountEls.length; i++) {
+      depositAmountEls[i].textContent = amount;
+    }
+  }
+
+  if (serviceSelect) {
+    serviceSelect.addEventListener('change', updateDepositDisplay);
+    updateDepositDisplay();
+  }
 
   /* Slot picker: only active when #bk-slot-mode is present and visible
      (server renders it visible when Google Calendar is configured). Falls
@@ -205,8 +230,9 @@
         }
         if (submitBtn) {
           submitBtn.removeAttribute('disabled');
-          submitBtn.textContent = 'Continue to Payment';
+          submitBtn.innerHTML = submitBtnDefaultHTML;
         }
+        updateDepositDisplay();
       });
   });
 })();

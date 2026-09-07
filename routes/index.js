@@ -6,6 +6,8 @@ const testimonials = require('../data/testimonials');
 const faq = require('../data/faq');
 const packages = require('../data/packages');
 const news = require('../data/news');
+const transformation = require('../data/transformation');
+const site = require('../data/site');
 const { breadcrumbList } = require('../lib/breadcrumbs');
 
 router.get('/', (req, res) => {
@@ -40,6 +42,33 @@ router.get('/packages', (req, res) => {
     packages,
     breadcrumbs: crumbs,
     structuredData: [breadcrumbList(res.locals.siteOrigin, crumbs)],
+  });
+});
+
+router.get('/transformation', (req, res) => {
+  const crumbs = [{ name: transformation.name, url: '/transformation' }];
+  res.render('pages/transformation', {
+    pageTitle: `${transformation.name} | Umoya Wellness Spa`,
+    pageDescription:
+      'A medically guided 6-week package combining Zinzino, THINNR, and 5 T-Shape 2 body contouring sessions for real, sustainable results.',
+    transformation,
+    breadcrumbs: crumbs,
+    structuredData: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: transformation.name,
+        provider: { '@type': 'MedicalBusiness', name: site.brand.name },
+        areaServed: 'South Salt Lake, UT',
+        description: 'A medically guided 6-week weight-loss and body contouring package.',
+        offers: {
+          '@type': 'Offer',
+          price: transformation.price,
+          priceCurrency: 'USD',
+        },
+      },
+      breadcrumbList(res.locals.siteOrigin, crumbs),
+    ],
   });
 });
 
@@ -126,7 +155,7 @@ const SITE_LAST_UPDATED = '2026-09-02';
 
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/packages', '/learn-more', '/news', '/contact', '/book'];
+  const staticRoutes = ['/', '/about', '/services', '/packages', '/transformation', '/learn-more', '/news', '/contact', '/book'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const newsRoutes = news.map((a) => `/news/${a.slug}`);
   const all = [...staticRoutes, ...serviceRoutes, ...newsRoutes];

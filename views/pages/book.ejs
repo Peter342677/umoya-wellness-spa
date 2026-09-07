@@ -10,7 +10,7 @@
     <div class="hero__content hero__content--center">
       <span class="badge hero__eyebrow" data-reveal="fade">Reserve Your Spot</span>
       <h1 class="hero__title" data-split-text="immediate">Book Your <em>Appointment</em></h1>
-      <p class="hero__subhead"><%= site.booking.depositAmountFormatted %> reserves your appointment today. The remaining balance is paid in person at the time of your visit.</p>
+      <p class="hero__subhead"><span class="js-deposit-amount"><%= initialDepositFormatted %></span> reserves your appointment today. The remaining balance is paid in person at the time of your visit.</p>
     </div>
   </div>
 </section>
@@ -32,7 +32,7 @@
         </li>
         <li style="padding-left:1.8rem; position:relative;">
           <span style="position:absolute; left:0; color: var(--color-accent); font-family: var(--font-display);">2</span>
-          Pay a <%= site.booking.depositAmountFormatted %> deposit securely by card to reserve your spot.
+          Pay a <span class="js-deposit-amount"><%= initialDepositFormatted %></span> deposit securely by card to reserve your spot.
         </li>
         <li style="padding-left:1.8rem; position:relative;">
           <span style="position:absolute; left:0; color: var(--color-accent); font-family: var(--font-display);">3</span>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="contact-form-panel" data-reveal>
-      <h2>Reserve With a <%= site.booking.depositAmountFormatted %> Deposit</h2>
+      <h2>Reserve With a <span class="js-deposit-amount"><%= initialDepositFormatted %></span> Deposit</h2>
       <p class="text-muted">You'll be redirected to our secure payment page to complete your deposit.</p>
 
       <% if (canceled) { %>
@@ -61,13 +61,13 @@
         <div class="form-status is-error" style="display:block;">Online booking payments are temporarily unavailable. Please call us at <%= site.contact.phone %> to book.</div>
       <% } %>
 
-      <form id="bookingForm" class="js-booking-form" action="/book" method="POST" novalidate>
+      <form id="bookingForm" class="js-booking-form" action="/book" method="POST" novalidate data-default-deposit="<%= site.booking.depositAmountFormatted %>">
         <div class="form-field">
           <label for="bk-service">Service *</label>
           <select id="bk-service" name="serviceSlug" required <%= stripeConfigured ? '' : 'disabled' %>>
             <option value="">Select a service&hellip;</option>
             <% services.forEach(function(s) { %>
-              <option value="<%= s.slug %>" <%= selectedService && selectedService.slug === s.slug ? 'selected' : '' %>><%= s.name %></option>
+              <option value="<%= s.slug %>" data-deposit="<%= s.depositAmountFormatted || site.booking.depositAmountFormatted %>" <%= selectedService && selectedService.slug === s.slug ? 'selected' : '' %>><%= s.name %></option>
             <% }) %>
           </select>
         </div>
@@ -117,7 +117,7 @@
           <textarea id="bk-notes" name="notes" <%= stripeConfigured ? '' : 'disabled' %>></textarea>
         </div>
         <button type="submit" class="btn btn--primary form-submit" <%= stripeConfigured ? '' : 'disabled' %>>
-          Continue to Payment - <%= site.booking.depositAmountFormatted %>
+          Continue to Payment - <span class="js-deposit-amount"><%= initialDepositFormatted %></span>
         </button>
         <div class="form-status" role="status" aria-live="polite"></div>
       </form>

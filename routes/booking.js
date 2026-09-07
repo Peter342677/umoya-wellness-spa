@@ -10,13 +10,18 @@ const router = express.Router();
 const { DateTime } = require('luxon');
 
 const services = require('../data/services');
+const transformation = require('../data/transformation');
 const site = require('../data/site');
 const { getAvailableSlots, BOOKING_WINDOW_DAYS, TIME_ZONE } = require('../lib/availability');
 const { isConfigured: calendarConfigured } = require('../lib/googleCalendar');
 
 const APPOINTMENT_DURATION_MINUTES = 60;
 
-const bookableServices = services;
+// The medspa catalog plus the 6-Week Total Body Transformation package -
+// kept as one combined list so /book can validate and look up either kind
+// of appointment by slug. The package carries its own depositAmount (see
+// the unit_amount line below), overriding the site-wide deposit.
+const bookableServices = [...services, transformation];
 
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY) return null;
@@ -27,6 +32,8 @@ function getStripe() {
 router.get('/book', (req, res) => {
   const selectedSlug = typeof req.query.service === 'string' ? req.query.service : '';
   const selectedService = bookableServices.find((s) => s.slug === selectedSlug) || null;
+  const initialDepositFormatted =
+    (selectedService && selectedService.depositAmountFormatted) || site.booking.depositAmountFormatted;
 
   const today = DateTime.now().setZone(TIME_ZONE).startOf('day');
   const maxDate = today.plus({ days: BOOKING_WINDOW_DAYS });
@@ -35,8 +42,9 @@ router.get('/book', (req, res) => {
     pageTitle: 'Book Your Appointment | Umoya Wellness Spa',
     pageDescription:
       `Reserve your appointment at Umoya Wellness Spa with a ${site.booking.depositAmountFormatted} deposit. The remaining balance is paid at the time of your visit.`,
-    services,
+    services: bookableServices,
     selectedService,
+    initialDepositFormatted,
     canceled: req.query.canceled === '1',
     stripeConfigured: !!process.env.STRIPE_SECRET_KEY,
     calendarConfigured: calendarConfigured(),
@@ -94,7 +102,7 @@ router.post('/book', async (req, res) => {
               name: `${service.name} - Booking Deposit`,
               description: 'Reserves your appointment. The remaining balance is due at the time of your visit.',
             },
-            unit_amount: site.booking.depositAmount * 100,
+            unit_amount: (service.depositAmount || site.booking.depositAmount) * 100,
           },
           quantity: 1,
         },
