@@ -4,7 +4,6 @@ const router = express.Router();
 const services = require('../data/services');
 const testimonials = require('../data/testimonials');
 const faq = require('../data/faq');
-const packages = require('../data/packages');
 const news = require('../data/news');
 const transformation = require('../data/transformation');
 const site = require('../data/site');
@@ -34,16 +33,9 @@ router.get('/about', (req, res) => {
 // Alias so /about-us also reaches the About Us page.
 router.get('/about-us', (req, res) => res.redirect(301, '/about'));
 
-router.get('/packages', (req, res) => {
-  const crumbs = [{ name: 'Packages', url: '/packages' }];
-  res.render('pages/packages', {
-    pageTitle: 'Packages | Umoya Wellness Spa',
-    pageDescription: 'Bundled treatment packages designed around your wellness goals. Book to inquire about pricing.',
-    packages,
-    breadcrumbs: crumbs,
-    structuredData: [breadcrumbList(res.locals.siteOrigin, crumbs)],
-  });
-});
+// The Packages page was discontinued - send any existing link to the
+// homepage rather than 404ing.
+router.get('/packages', (req, res) => res.redirect(301, '/'));
 
 router.get('/transformation', (req, res) => {
   const crumbs = [{ name: transformation.name, url: '/transformation' }];
@@ -151,11 +143,11 @@ router.get('/concierge-healthcare', (req, res) => res.redirect(301, '/'));
 // Bump this when site content meaningfully changes - applied to every
 // sitemap entry as a single, honest "last updated" signal rather than
 // stamping the current request date (which would falsely claim daily changes).
-const SITE_LAST_UPDATED = '2026-09-02';
+const SITE_LAST_UPDATED = '2026-09-17';
 
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/packages', '/transformation', '/learn-more', '/news', '/contact', '/book'];
+  const staticRoutes = ['/', '/about', '/services', '/transformation', '/learn-more', '/news', '/contact', '/book'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const newsRoutes = news.map((a) => `/news/${a.slug}`);
   const all = [...staticRoutes, ...serviceRoutes, ...newsRoutes];

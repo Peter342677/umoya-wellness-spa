@@ -19,7 +19,7 @@ Runs at **http://localhost:3070** (configurable via `PORT` in `.env` - copy `.en
 ```
 server.js                  Express app - view engine, middleware, route mounting
 routes/
-  index.js                 Home, About, Packages, Learn More, News, sitemap, robots
+  index.js                 Home, About, Transformation, Learn More, News, sitemap, robots
   services.js              /services hub + /services/:slug detail pages
   contact.js               /contact page + POST handler (email or local JSON fallback)
   booking.js               /book form + Stripe Checkout Session creation
@@ -28,7 +28,7 @@ routes/
 data/
   site.js                  Brand, contact info, hours, socials, deposit amount, nav
   services.js              Service catalog (single source for routes, nav, footer)
-  packages.js              Package cards
+  transformation.js        6-Week Total Body Transformation package (own page + $100 deposit)
   testimonials.js          Paraphrased Google reviews
   faq.js / news.js         FAQ + journal placeholder content
   submissions/             Contact form submissions land here when SMTP is unset
@@ -72,9 +72,11 @@ scripts/
   `data/submissions/*.json`. See the `TODO` in `routes/contact.js` for wiring a
   CRM instead.
 - **Business info** (hours, phone, address, Instagram) - all in `data/site.js`.
-- **Packages/pricing** - cards intentionally say "Book to inquire about pricing";
-  add a `price` field in `data/packages.js` and render it in
-  `views/pages/packages.ejs` when real pricing is confirmed.
+  Hours changes need updating in three other spots too: the JSON-LD
+  `openingHoursSpecification` in `views/layout.ejs`, `BUSINESS_HOURS` in
+  `lib/availability.js` (drives real slot generation), and the closed-weekday
+  check in `public/js/booking.js` (grays out the client-side calendar) - keep
+  all four in sync.
 
 ## Google Calendar integration (live availability + auto-synced appointments)
 
