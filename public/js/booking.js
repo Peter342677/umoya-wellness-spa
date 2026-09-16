@@ -60,8 +60,8 @@
 
   /* Inline month-grid calendar (replaces the native <input type="date">
      dropdown so open dates are visible at a glance). Closed weekdays
-     (Sunday/Monday/Tuesday) are grayed out client-side to match the business
-     hours in lib/availability.js's BUSINESS_HOURS - keep these in sync. */
+     (Monday) are grayed out client-side to match the business hours in
+     lib/availability.js's BUSINESS_HOURS - keep these in sync. */
   function initCalendar(el) {
     var minDate = parseISODate(el.getAttribute('data-min'));
     var maxDate = parseISODate(el.getAttribute('data-max'));
@@ -103,7 +103,7 @@
         var dateStr = toISODate(viewYear, viewMonth, day);
         var weekday = cellDate.getDay();
         var outOfRange = cellDate < minDate || cellDate > maxDate;
-        var closed = weekday === 0 || weekday === 1 || weekday === 2;
+        var closed = weekday === 1;
 
         var btn = document.createElement('button');
         btn.type = 'button';
