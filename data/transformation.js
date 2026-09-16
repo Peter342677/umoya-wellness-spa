@@ -14,7 +14,7 @@ module.exports = {
   includes: [
     {
       title: 'Zinzino',
-      text: 'BalanceOil+ and LeanShake, for balance from the inside out.',
+      text: 'Starts with a BalanceTest (measuring your Omega-6:3 fatty acid ratio), Gut Health Test, Vitamin D Test, and HbA1c Test. Then BalanceOil+ for immune support, gut health, and targeted restoration, alongside Zinzino weight-management products.',
     },
     {
       title: 'THINNR',
