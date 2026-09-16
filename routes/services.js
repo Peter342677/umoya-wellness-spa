@@ -50,6 +50,10 @@ router.get('/botox', (req, res) => res.redirect(301, '/services'));
 // weight-loss packages - send existing links there rather than 404ing.
 router.get('/glutathione-injections', (req, res) => res.redirect(301, '/services/thinnr-weight-loss'));
 
+// Peptide Therapy was discontinued - send any existing link to the
+// services hub rather than 404ing.
+router.get('/peptides', (req, res) => res.redirect(301, '/services'));
+
 router.get('/:slug', (req, res, next) => {
   const service = services.find((s) => s.slug === req.params.slug);
   if (!service) return next();
