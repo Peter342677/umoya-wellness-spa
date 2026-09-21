@@ -143,7 +143,7 @@ router.get('/concierge-healthcare', (req, res) => res.redirect(301, '/'));
 // Bump this when site content meaningfully changes - applied to every
 // sitemap entry as a single, honest "last updated" signal rather than
 // stamping the current request date (which would falsely claim daily changes).
-const SITE_LAST_UPDATED = '2026-09-17';
+const SITE_LAST_UPDATED = '2026-09-22';
 
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
