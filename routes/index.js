@@ -64,6 +64,12 @@ router.get('/transformation', (req, res) => {
   });
 });
 
+// Botox Injector Bootcamp ad landing page (Instagram/Facebook). It has its own
+// standalone design, so it renders without the site layout/nav.
+router.get('/academy', (req, res) => {
+  res.render('pages/academy', { layout: false });
+});
+
 router.get('/learn-more', (req, res) => {
   const crumbs = [{ name: 'Learn More', url: '/learn-more' }];
   res.render('pages/learn-more', {
@@ -143,11 +149,11 @@ router.get('/concierge-healthcare', (req, res) => res.redirect(301, '/'));
 // Bump this when site content meaningfully changes - applied to every
 // sitemap entry as a single, honest "last updated" signal rather than
 // stamping the current request date (which would falsely claim daily changes).
-const SITE_LAST_UPDATED = '2026-09-22';
+const SITE_LAST_UPDATED = '2026-11-25';
 
 router.get('/sitemap.xml', (req, res) => {
   const base = `${req.protocol}://${req.get('host')}`;
-  const staticRoutes = ['/', '/about', '/services', '/transformation', '/learn-more', '/news', '/contact', '/book'];
+  const staticRoutes = ['/', '/about', '/services', '/transformation', '/academy', '/learn-more', '/news', '/contact', '/book'];
   const serviceRoutes = services.map((s) => `/services/${s.slug}`);
   const newsRoutes = news.map((a) => `/news/${a.slug}`);
   const all = [...staticRoutes, ...serviceRoutes, ...newsRoutes];
